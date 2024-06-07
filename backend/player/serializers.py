@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from player.models import Player
 
-class PlayerCreateSerializer(serializers.ModelSerializer):
+class UpdatePlayerSerializer(serializers.ModelSerializer):
     class Meta:
         model=Player
         fields=['dob','gender','weight','height','country']
@@ -19,4 +19,4 @@ class PlayerSerializer(serializers.ModelSerializer):
         return obj.user.last_name
     class Meta:
         model=Player
-        fields=['first_name','last_name','dob','gender','weight','height','country']
+        fields=['username','first_name','last_name','dob','gender','weight','height','country']
