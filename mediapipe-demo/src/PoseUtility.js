@@ -1,5 +1,6 @@
 
 function calculateAngle(A, B, C) {
+
     // Calculate vectors AB and BC
     const AB = { x: B.x - A.x, y: B.y - A.y };
     const BC = { x: C.x - B.x, y: C.y - B.y };
@@ -21,6 +22,6 @@ function calculateAngle(A, B, C) {
     const angleDegrees = angleRadians * (180 / Math.PI);
     
     return Math.abs(180-angleDegrees);
-  }
+}
 
 export default calculateAngle;

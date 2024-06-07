@@ -6,7 +6,6 @@ import calculateAngle from './PoseUtility';
 import { LANDMARK_NAMES, NAME_BASED_CONNECTIONS,POSE_CONNECTIONS } from './PoseConstants';
 import checkPushup from './Pushup';
 
-
 const PoseDetection = () => {
     const videoRef = useRef(null);
     const canvasRef = useRef(null);
@@ -24,6 +23,22 @@ const PoseDetection = () => {
             minDetectionConfidence: 0.5,
             minTrackingConfidence: 0.5
         });
+
+        // Function to start video and process frames
+        const startVideo = (video) => {
+            const videoElement = video;
+            // videoElement.play();
+            videoElement.onloadeddata = () => {
+                const onFrame = async () => {
+                    if (!videoElement.paused && !videoElement.ended) {
+                        console.log("work")
+                        await pose.send({ image: videoElement }); // Send video frame to MediaPipe Pose
+                        requestAnimationFrame(onFrame); // Process next frame
+                    }
+                };
+                onFrame(); // Start processing frames
+            };
+        };
         function startCamera(){
             const camera = new Camera(videoRef.current, {
                 onFrame: async () => {
@@ -47,7 +62,8 @@ const PoseDetection = () => {
         function updateCanvas(results,canvasCtx,canvasElement){
             canvasCtx.save();
             canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
-            canvasCtx.drawImage(results.image, 0, 0, canvasElement.width, canvasElement.height);
+            canvasCtx.drawImage(videoRef.current, 0, 0, canvasElement.width, canvasElement.height);
+            // canvasCtx.drawImage(results.image, 0, 0, canvasElement.width, canvasElement.height);
         }
         function connectParts(canvasCtx, results) {
             // Draw connectors
@@ -71,15 +87,17 @@ const PoseDetection = () => {
         }
 
         pose.onResults(onResults);
-
         if (videoRef.current) {
+            // startVideo(videoRef.current)
             startCamera(videoRef,pose)
         }
     }, []);
 
     return (
         <div>
-            <video ref={videoRef} style={{ display: 'none' }} />
+            <video ref={videoRef} src="/pushup.mp4" width="640" height="480" controls />
+            {/* <video ref={videoRef} src="/pushup.mp4" style={{ display: 'none' }} /> */}
+            <button onClick={() => videoRef.current && videoRef.current.play()}>Start Video</button>
             <canvas ref={canvasRef} width="640" height="480" />
         </div>
     );
