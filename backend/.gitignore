@@ -1,0 +1,33 @@
+# Python virtual environment
+/venv/
+/env/
+
+# Files created by Django
+*.db
+*.sqlite3
+*.sql
+# **/migrations/
+
+# Media and static files
+/media/
+/staticfiles/
+
+# Ignore .env files, as they may contain sensitive data
+.env
+
+#Ignore Python cache files
+*.pyc
+
+#Ignore Python object files
+*.pyo
+
+# Ignore any compiled Python code
+__pycache__/
+prod_guide.txt
+pass.txt
+for_test.txt
+/ideas/
+#ignore bat files
+*.bat
+
+pip.lock
