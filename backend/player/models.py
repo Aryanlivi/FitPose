@@ -6,7 +6,7 @@ from django.conf import settings
 class Player(models.Model):
     user=models.OneToOneField(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,null=True,blank=True,related_name="player")
     dob= models.DateField(validators=[validate_birth_date],null=True)
-    
+
     gender = models.CharField(choices=GENDER_CHOICES, max_length=1)
     weight = models.FloatField(validators=[MinValueValidator(0)])
     height = models.FloatField(validators=[MinValueValidator(0)])
