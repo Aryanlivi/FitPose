@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',    
 ]
 MY_APPS=[
-    'player/'
+    'player'
 ]
 INSTALLED_APPS+=MY_APPS
 
