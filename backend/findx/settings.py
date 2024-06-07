@@ -36,10 +36,18 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'user'
+    'django.contrib.staticfiles',    
 ]
-MY_APPS=['home']
+
+# using our user auth model
+AUTH_USER_MODEL = "user.User"
+
+MY_APPS=[
+    'user',
+    'djoser',
+    "rest_framework",
+    'findx'
+    ]
 INSTALLED_APPS+=MY_APPS
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -71,6 +79,18 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'findx.wsgi.application'
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+}
+
+DJOSER = {
+    'SERIALIZERS': {
+        'user_create': 'yourapp.serializers.UserCreateSerializer',  # Customize as needed
+        'user': 'yourapp.serializers.UserSerializer',  # Customize as needed
+    },
+}
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
