@@ -5,6 +5,6 @@ from rest_framework.routers import DefaultRouter
 from .views import GoogleSignInViewSet
 
 router = DefaultRouter()
-router.register('login', GoogleSignInViewSet, basename='google-signin')
+router.register('login', GoogleSignInViewSet)
 
 urlpatterns = router.urls

@@ -19,12 +19,29 @@ class GoogleSignInSerializer(serializers.ModelSerializer):
         model=User
         fields=["id","nickname","given_name","family_name"]
 
+    def create(self, validated_data):        
+        username = validated_data.pop('username')
+        first_name = validated_data.pop('first_name')
+        last_name = validated_data.pop('last_name')
+
+        # Get user if it is created else return the existing user
+        user, created = User.objects.get_or_create(
+            username=username,
+            defaults={'first_name': first_name, 'last_name': last_name}
+        )
+        
+        if not created:
+            user.first_name = first_name
+            user.last_name = last_name
+            user.save()
+
+        return user
+
     def to_representation(self, user):
-        data = super().to_representation(user)
-        # Get access and refresh tokens
+        data = super().to_representation(user)        
         refresh = RefreshToken.for_user(user)
         access = AccessToken.for_user(user)
-        # Include refresh token in the serialized data
+        # Include refresh token and access token
         data['refresh_token'] = str(refresh)
         data['access_token']=str(access)
 

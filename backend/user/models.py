@@ -6,7 +6,7 @@ class User(AbstractUser):
     first_name = models.CharField(max_length=150,blank=False)
     last_name = models.CharField(max_length=150,blank=False)
     def save(self, *args, **kwargs):
-        #case insensitivity
+        # Case Insensitivity
         self.username = self.username.lower()
         existing_user = User.objects.filter(username__iexact=self.username).exclude(pk=self.pk).first()
         if existing_user:

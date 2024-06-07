@@ -46,8 +46,9 @@ AUTH_USER_MODEL = "user.User"
 MY_APPS=[
     'user',
     'djoser',
-    "rest_framework",
-    'findx'
+    'rest_framework',
+    'findx',
+    'tracking'
     ]
 INSTALLED_APPS+=MY_APPS
 MIDDLEWARE = [
