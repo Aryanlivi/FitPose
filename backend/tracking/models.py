@@ -20,8 +20,18 @@ class Leaderboard(models.Model):
         unique_together = ('user','exercise_type')
 
 class Competition(models.Model):
+    exercise_type = models.ForeignKey(Exercises,on_delete=models.CASCADE)
     user1 = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,related_name='user1')
     user2 = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,related_name='user2')
     user1_count = models.IntegerField(default=0)
     user2_count = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
+
+class Personal(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
+    exercise_type = models.ForeignKey(Exercises,on_delete=models.CASCADE)
+    count = models.IntegerField(default=0)    
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('user','exercise_type')
