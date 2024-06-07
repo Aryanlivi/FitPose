@@ -5,8 +5,6 @@ from django.core.exceptions import ValidationError
 class User(AbstractUser):
     first_name = models.CharField(max_length=150,blank=False)
     last_name = models.CharField(max_length=150,blank=False)
-    username = models.CharField(max_length=150,blank=False)
-
     def save(self, *args, **kwargs):
         #case insensitivity
         self.username = self.username.lower()
@@ -15,4 +13,6 @@ class User(AbstractUser):
             raise ValidationError({'username': 'A user with this username already exists.'})
         
         super().save(*args, **kwargs)
+
+
     

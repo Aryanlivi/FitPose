@@ -6,6 +6,10 @@ name = "pypi"
 [packages]
 django = "*"
 djoser = "*"
+pyjwt = "*"
+google-auth = "*"
+python-decouple = "*"
+psycopg2 = "*"
 
 [dev-packages]
 

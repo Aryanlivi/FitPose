@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -87,8 +88,8 @@ REST_FRAMEWORK = {
 
 DJOSER = {
     'SERIALIZERS': {
-        'user_create': 'yourapp.serializers.UserCreateSerializer',  # Customize as needed
-        'user': 'yourapp.serializers.UserSerializer',  # Customize as needed
+        'user_create': 'user.serializers.UserCreateSerializer',  # Customize as needed
+        'user': 'user.serializers.UserSerializer',  # Customize as needed
     },
 }
 
@@ -143,3 +144,14 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": config("LOCAL_DB_NAME"),
+        "USER": config("LOCAL_DB_USER"),
+        "PASSWORD": config('LOCAL_DB_PASS'),
+        "HOST": config("LOCAL_DB_HOST"),
+        "PORT": config("LOCAL_DB_PORT"),
+    }
+}
