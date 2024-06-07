@@ -5,6 +5,6 @@ from rest_framework.routers import DefaultRouter
 from .views import PlayerViewSet
 
 router = DefaultRouter()
-router.register('addinfo', PlayerViewSet, basename='add-player-info')
+router.register('', PlayerViewSet, basename='add-player-info')
 
 urlpatterns = router.urls
