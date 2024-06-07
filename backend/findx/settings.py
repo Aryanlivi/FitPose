@@ -39,6 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',    
 ]
+MY_APPS=[
+    'player/'
+]
+INSTALLED_APPS+=MY_APPS
 
 # using our user auth model
 AUTH_USER_MODEL = "user.User"
