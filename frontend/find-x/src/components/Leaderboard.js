@@ -1,7 +1,10 @@
 import leaderboardData from './leaderBoardData';
-import { firstBadge, secondBadge, thirdBadge } from '../assets';
 import axios from "axios";
 import {useState, useEffect} from "react";
+import { firstBadge, secondBadge, thirdBadge } from '../assets';
+import { ReactComponent as FirstBadge } from '../assets/1-circle-fill.svg';
+import { ReactComponent as SecondBadge } from '../assets/2-circle-fill.svg';
+import { ReactComponent as ThirdBadge } from '../assets/3-circle-fill.svg';
 
 
 const HOST='127.0.0.1:8000';
@@ -79,7 +82,7 @@ const Leaderboard = () => {
             <tr key={player.id}>
             <td className="p-2">{player.username}</td>
             <td className="p-2">{player.personal_count+player.competitive_count}</td>
-            <td className="p-2">{firstBadge}</td>
+            <td className="p-2 flex justify-center items-center" style={{ textAlign: 'center' }}><FirstBadge /></td>
             </tr>
         ))}
         </tbody>
