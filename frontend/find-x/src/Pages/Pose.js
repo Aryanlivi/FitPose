@@ -1,16 +1,69 @@
 import React from 'react'
+import './Pose.css'
+import { pushup_temp, cobra_pushup_temp, barbell_squat_temp, crunch_temp, dead_bug_temp, lying_leg_raise_temp } from '../assets'
 
 const Pose = () => {
+
   return (
-    <div style={{ display: 'flex', flexDirection: 'row' , marginLeft:'180px', marginTop:'75px'}}>
+    <div style={{ display: 'flex', flexDirection: 'row' , marginLeft:'95px', marginTop:'75px', marginRight: '100px'}}>
         <div style={{ display: 'flex', flexDirection: 'row' }}>
-            <div style={{ display: 'fixed', flexDirection: 'column' , marginTop:'-19px' }}>
-                <div style={{ height:'300px' ,width:'300px', margin: '20px',borderRadius: '10px', borderColor: 'black', borderWidth: '2px', padding:'16px'  }} className="w-[30%]">
-                    <h1>Hello</h1>
-                </div> 
-            </div>
+                <div className="containerPose">
+                  <div className="boxPose">
+                    <div className="upperPose">
+                        <img src={ pushup_temp } width={380} height={300} />
+                    </div>
+                    <div className="lowerPose">
+                      <p>something will be written here in a ddddlarge size</p>
+                    </div>
+                  </div>
+        
+                  <div className="boxPose">
+                    <div className="upperPose">
+                        <img src={ barbell_squat_temp }  />
+                    </div>
+                    <div className="lowerPose">
+                      <p>something will be written here in a ddddlarge size</p>
+                    </div>
+                  </div>
+
+                  <div className="boxPose">
+                    <div className="upperPose">
+                        <img src={ cobra_pushup_temp }  />
+                    </div>
+                    <div className="lowerPose">
+                      <p>something will be written here in a ddddlarge size</p>
+                    </div>
+                  </div>
+
+                  <div className="boxPose">
+                    <div className="upperPose">
+                        <img src={ crunch_temp }  />
+                    </div>
+                    <div className="lowerPose">
+                      <p>something will be written here in a ddddlarge size</p>
+                    </div>
+                  </div>
+
+                  <div className="boxPose">
+                    <div className="upperPose">
+                        <img src={ dead_bug_temp }  />
+                    </div>
+                    <div className="lowerPose">
+                      <p>something will be written here in a ddddlarge size</p>
+                    </div>
+                  </div>
+
+                  <div className="boxPose">
+                    <div className="upperPose">
+                        <img src={ lying_leg_raise_temp }  />
+                    </div>
+                    <div className="lowerPose">
+                      <p>something will be written here in a ddddlarge size</p>
+                    </div>
+                  </div>
+              </div> 
         </div>
-    </div>
+      </div>
   )
 }
 
