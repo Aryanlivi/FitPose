@@ -1,11 +1,13 @@
 import {React ,useEffect} from 'react'
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
+import { useNavigate } from 'react-router';
 
 const HOST='127.0.0.1:8000';
 const Sidebar = () => {
 
     const { loginWithRedirect, isAuthenticated, logout,user } = useAuth0();
+    const navigate = useNavigate();
 
     const handleLogin = () => {        
         loginWithRedirect();        
@@ -14,17 +16,23 @@ const Sidebar = () => {
         console.log("Is the user authenticated: ", isAuthenticated);
         console.log(user);
         loginWithDjango();
-    })
+    }, [isAuthenticated])
 
     const loginWithDjango = async () => {
         let response; 
         try{
             response = await axios.post(`http://${HOST}/user/login/`,user);
-        }catch(error){
-            console.log("FUCK THIS SHIT");
+            console.log('response')
+            console.log(response.data)
+            if (response.data.new_user == true) {
+                navigate('/signin');
+            } else {
+                navigate('/signedin');
+            }
+        }catch(error){            
             console.log(error);
         }
-        console.log(response);               
+        
     }
     return (
         <div 

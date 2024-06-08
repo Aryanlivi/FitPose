@@ -6,11 +6,13 @@ import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import LoginButton from './components/LoginButton';
+import SignIn from './Pages/SignIn';
+import SignedIn from './Pages/SignedIn';
+
 
 const Dashboard = () => <h1>Dashboard</h1>;
 const Profile = () => <h1>Profile</h1>;
 const Settings = () => <h1>Settings</h1>;
-
 function App() {
 
   const { user } = useAuth0();
@@ -23,9 +25,11 @@ function App() {
           {/* <Navbar /> */}
           <Sidebar />
           <Routes>
-              <Route path="/dashboard" component={Dashboard} />
-              <Route path="/profile" component={Profile} />
-              <Route path="/settings" component={Settings} />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/settings" element={<Settings />} />
+              <Route path="/signin" element={<SignIn />} />
+              <Route path="/signedin" element={<SignedIn />} />
           </Routes>
           <Home />
       </div>
