@@ -54,17 +54,15 @@ const PoseDetection = () => {
             canvasCtx.drawImage(videoRef.current, 0, 0, canvasElement.width, canvasElement.height);
             // canvasCtx.drawImage(results.image, 0, 0, canvasElement.width, canvasElement.height);
         }
-        function connectParts(canvasCtx, results) {
+        function connectParts(canvasCtx, results,connectorColor) {
             // Draw connectors
-            drawConnectors(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS, { color: 'white', lineWidth: 4 });
+            drawConnectors(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS, { color: connectorColor, lineWidth: 4 });
 
             // Draw landmarks
             drawLandmarks(canvasCtx, results.poseLandmarks, { color: 'red', lineWidth: 2 });
         }
 
-        function displaycanvas2(canvasCtx,canvasElement){
-            
-        }
+
         function onResults(results) {
             const canvasElement = canvasRef.current;
             const canvasCtx = canvasElement.getContext('2d');
@@ -79,12 +77,15 @@ const PoseDetection = () => {
                     results.poseLandmarks[landmark].visibility>0.5
                 );               
                 const allLandmarksVisible=leftLandmarkVisibility||rightLandmarkVisibility
-                connectParts(canvasCtx, results)
-                checkSquat(results, canvasCtx, canvasElement)
                 if(allLandmarksVisible){
                     // showLandmarkNames(results,canvasCtx,canvasElement)
-                    // checkPushup(results, canvasCtx, canvasElement)
-                    checkSquat(results, canvasCtx, canvasElement)
+                    const isGoodForm=checkPushup(results, canvasCtx, canvasElement)
+                    let connectorColor='red'
+                    if (isGoodForm){
+                        connectorColor='green'
+                    }
+                    connectParts(canvasCtx, results,connectorColor)
+                    //checkSquat(results, canvasCtx, canvasElement)
                     textElement.textContent="Start"
                 }             
                 else{

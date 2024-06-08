@@ -6,11 +6,12 @@ import calculateAngle from '../constants/PoseUtility';
 import { LANDMARK_NAMES, NAME_BASED_CONNECTIONS, POSE_CONNECTIONS } from '../constants/PoseConstants';
 import checkPushup from '../constants/Pushup';
 
-
+const VIDEO="./pushup.mp4"
 //This is just for Testing.
 const PoseVideoDetection = () => {
     const videoRef = useRef(null);
     const canvasRef = useRef(null);
+    const textRef=useRef(null)
 
     useEffect(() => {
         const pose = new Pose({
@@ -41,7 +42,7 @@ const PoseVideoDetection = () => {
             const startVideo = () => {
                 const videoElement=videoRef.current
                 // must be same domain otherwise it will taint the canvas! 
-                videoElement.src = "./pushup.mp4"; 
+                videoElement.src = VIDEO; 
                 
                 videoElement.onloadeddata = (evt) => {
                 let video = evt.target;
@@ -78,26 +79,66 @@ const PoseVideoDetection = () => {
                 canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
                 canvasCtx.drawImage(videoRef.current, 0, 0, canvasElement.width, canvasElement.height);
             }
-            function connectParts(canvasCtx, results) {
+            function connectParts(canvasCtx, results,connectorColor) {
                 // Draw connectors
-                drawConnectors(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS, { color: 'red', lineWidth: 4 });
-
+                drawConnectors(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS, { color: connectorColor, lineWidth: 4 });
+    
                 // Draw landmarks
                 drawLandmarks(canvasCtx, results.poseLandmarks, { color: 'red', lineWidth: 2 });
             }
+    
+    
             function onResults(results) {
                 const canvasElement = canvasRef.current;
                 const canvasCtx = canvasElement.getContext('2d');
-                updateCanvas(results, canvasCtx, canvasElement)
-
+                const textElement=textRef.current
+                updateCanvas(results,canvasCtx,canvasElement)
+                
                 if (results.poseLandmarks) {
-                    // console.log(results)            
-                    connectParts(canvasCtx,results)
-                    // showLandmarkNames(results,canvasCtx,canvasElement)
-                    checkPushup(results, canvasCtx, canvasElement)
+                    const selectedLeftParts=[LANDMARK_NAMES['left_shoulder'],LANDMARK_NAMES['nose'],LANDMARK_NAMES['left_ankle'],LANDMARK_NAMES['left_hip']]
+                    const selectedRightParts=[LANDMARK_NAMES['right_shoulder'],LANDMARK_NAMES['nose'],LANDMARK_NAMES['right_ankle'],LANDMARK_NAMES['right_hip']]
+                    const leftLandmarkVisibility = selectedLeftParts.every(landmark =>results.poseLandmarks[landmark].visibility>0.5);  
+                    const rightLandmarkVisibility = selectedRightParts.every(landmark =>
+                        results.poseLandmarks[landmark].visibility>0.5
+                    );               
+                    const allLandmarksVisible=leftLandmarkVisibility||rightLandmarkVisibility
+                    if(allLandmarksVisible){
+                        // showLandmarkNames(results,canvasCtx,canvasElement)
+                        const isGoodForm=checkPushup(results, canvasCtx, canvasElement)
+                        let connectorColor='red'
+                        if (isGoodForm){
+                            connectorColor='green'
+                        }
+                        connectParts(canvasCtx, results,connectorColor)
+                        //checkSquat(results, canvasCtx, canvasElement)
+                        textElement.textContent="Start"
+                    }             
+                    else{
+                        textElement.textContent="Go Further away!"
+                    }
                 }
                 canvasCtx.restore();
             }
+            // function connectParts(canvasCtx, results) {
+            //     // Draw connectors
+            //     drawConnectors(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS, { color: 'red', lineWidth: 4 });
+
+            //     // Draw landmarks
+            //     drawLandmarks(canvasCtx, results.poseLandmarks, { color: 'red', lineWidth: 2 });
+            // }
+            // function onResults(results) {
+            //     const canvasElement = canvasRef.current;
+            //     const canvasCtx = canvasElement.getContext('2d');
+            //     updateCanvas(results, canvasCtx, canvasElement)
+
+            //     if (results.poseLandmarks) {
+            //         // console.log(results)            
+            //         connectParts(canvasCtx,results)
+            //         // showLandmarkNames(results,canvasCtx,canvasElement)
+            //         checkPushup(results, canvasCtx, canvasElement)
+            //     }
+            //     canvasCtx.restore();
+            // }
 
             pose.onResults(onResults);
             if (videoRef.current) {
@@ -112,6 +153,7 @@ const PoseVideoDetection = () => {
             <video ref={videoRef} width="0" height="0" controls/>
 
             <button onClick={() => videoRef.current && videoRef.current.play()}>Start Video</button>
+            <text ref={textRef} style={{fontSize:'50px'}}></text>
             {/* <video ref={videoRef} src="/pushup.mp4" style={{ display: 'none' }} /> */}
         </div>
     );

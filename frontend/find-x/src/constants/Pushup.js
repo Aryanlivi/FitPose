@@ -17,7 +17,7 @@ function displayPushupCount(canvasCtx,canvasElement,count){
     canvasCtx.fillStyle = 'red';
     canvasCtx.fillText(`PushUp Count:${count}`, 10, 60);
 }
-let pushupState = 'up';
+let pushupState = 'bad';
 let pushupCount = 0; // Counter for completed pushups
 function checkPushup(results,canvasCtx,canvasElement){// Calculate and display the angle between elbow and arm
     const leftShoulder = results.poseLandmarks[LANDMARK_NAMES['left_shoulder']];
@@ -36,7 +36,9 @@ function checkPushup(results,canvasCtx,canvasElement){// Calculate and display t
     let rightArmAngle;
     let leftHipAngle;
     let rightHipAngle;
-    let isNoseBelow;
+    let isNoseBelow=false;
+    let isHipCorrect=false;
+    let isArmCorrect=false;
     if (rightShoulder && rightElbow && rightWrist) {
         rightArmAngle = calculateAngle(rightShoulder, rightElbow, rightWrist);    
     }
@@ -57,14 +59,16 @@ function checkPushup(results,canvasCtx,canvasElement){// Calculate and display t
     }
     //starting position and end
     if (rightArmAngle>150 && rightArmAngle<200 && leftArmAngle>150 && leftArmAngle<200 && leftHipAngle>140 && rightHipAngle>140 && !isNoseBelow){
+        isArmCorrect=true;
         if (pushupState === 'down') {
-            pushupCount++; // Increment pushup count when transitioning from 'down' to 'up'
+            pushupCount++;
         }
         pushupState = 'up';
         displayPushup(canvasCtx,canvasElement,"Pushup Start")
     }
     //down in pushup
     if(rightArmAngle<70 && leftArmAngle <80 && leftHipAngle>100 && rightHipAngle>100 && isNoseBelow){
+        isHipCorrect=true;
         pushupState = 'down';
         displayPushup(canvasCtx,canvasElement,"Pushup Ongoing")
     }
@@ -72,6 +76,12 @@ function checkPushup(results,canvasCtx,canvasElement){// Calculate and display t
     // displayInCanvas(rightHipAngle,rightHip,canvasCtx,canvasElement)
 
     displayPushupCount(canvasCtx,canvasElement,pushupCount);
+    if(pushupState=='up' || pushupState=='down'){
+        return true
+    }
+    return false
+    
 }
+
 
 export default checkPushup;

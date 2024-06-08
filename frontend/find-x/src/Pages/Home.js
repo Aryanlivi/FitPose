@@ -20,8 +20,8 @@ const Home = () => {
         </div>
     
         <div className="w-7/10 bg-gray-200 p-4">
-            {/* <PoseVideoDetection /> */}
-            <PoseDetection />
+            <PoseVideoDetection />
+            {/* <PoseDetection /> */}
         </div>
     </div>
   )
