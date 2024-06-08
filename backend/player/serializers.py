@@ -6,7 +6,16 @@ class UpdatePlayerSerializer(serializers.ModelSerializer):
         model=Player
         fields=['dob','gender','weight','height','country']
     
+class SimplePlayerSerializer(serializers.ModelSerializer):
+    user_id=serializers.IntegerField(read_only=True)
+    username=serializers.SerializerMethodField()
+    def get_username(self,obj):
+        return obj.user.username
+    class Meta:
+        model=Player
+        fields=['id','user_id','username','country']
 class PlayerSerializer(serializers.ModelSerializer):
+    user_id=serializers.IntegerField(read_only=True)
     username=serializers.SerializerMethodField()
     first_name=serializers.SerializerMethodField()
     last_name=serializers.SerializerMethodField()
@@ -19,4 +28,4 @@ class PlayerSerializer(serializers.ModelSerializer):
         return obj.user.last_name
     class Meta:
         model=Player
-        fields=['username','first_name','last_name','dob','gender','weight','height','country']
+        fields=['id','user_id','username','first_name','last_name','dob','gender','weight','height','country']
