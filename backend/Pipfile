@@ -11,6 +11,7 @@ google-auth = "*"
 python-decouple = "*"
 psycopg2 = "*"
 django-filter = "*"
+django-cors-headers = "*"
 
 [dev-packages]
 
