@@ -10,6 +10,7 @@ pyjwt = "*"
 google-auth = "*"
 python-decouple = "*"
 psycopg2 = "*"
+django-filter = "*"
 
 [dev-packages]
 
