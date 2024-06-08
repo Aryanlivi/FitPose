@@ -3,17 +3,7 @@ import LandingScreen from '../components/LandingScreen';
 import LoginButton from '../components/LoginButton';
 import Leaderboard from '../components/Leaderboard';
 import PoseVideoDetection from '../context/PoseVideoDetection';
-<<<<<<< HEAD
-import PoseDetectionSquat from '../context/PoseDetectionSquat';
 import PoseDetectionPushup from '../context/PoseDetectionPushup';
-import ComparisonPose from '../context/ComparisionPose';
-
-
-const Home = () => {
-
-    const [enableVideo, setEnableVideo] = useState(false);
-=======
-import PoseDetection from '../context/PoseDetection';
 import { stock_pushup, stock_pushup_gif, poor_push_up, barbell_squat_temp } from '../assets';
 
 const Home = () => {
@@ -30,7 +20,6 @@ const Home = () => {
         marginLeft:'5px',
         marginRight:'15px'
     };
->>>>>>> pranav
 
   return (
     <div style={{ display: 'flex', flexDirection: 'row' , marginLeft:'180px', marginTop:'75px'}}>
@@ -45,18 +34,6 @@ const Home = () => {
             </div>
         </div>
 
-<<<<<<< HEAD
-        <div>
-            <div className="bg-gray-200 p-4" style={{ display: 'flex', flexDirection: 'column' }}>
-                {/* <PoseVideoDetection /> */}
-                {/* <PoseDetection /> */}
-                <button onClick={() => setEnableVideo(true)}>
-                    Enable Video
-                </button>
-                {
-                    enableVideo ? <PoseDetectionSquat /> : null
-                }
-=======
         <div className='w-[60vw] rounded-md h-[150vh]'>
             <div className="p-5 h-[45%]  bg-white  shadow-lg rounded-lg" style={{ display: 'flex', flexDirection: 'column',borderColor:'black',borderWidth:'1px'}}>
                 <div class='flex'><div>
@@ -107,7 +84,6 @@ const Home = () => {
                         </div>
                     </div>
                     </div>
->>>>>>> pranav
             </div>
         </div>
     </div>

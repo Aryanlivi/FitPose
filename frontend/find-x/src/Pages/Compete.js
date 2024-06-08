@@ -1,6 +1,6 @@
 import React from 'react'
 import './Compete.css'
-import PoseDetection from '../context/PoseDetection'
+import PoseDetectionPushup from '../context/PoseDetectionPushup'
 
 const Compete = () => {
   return (
@@ -8,7 +8,7 @@ const Compete = () => {
       <div style={{ display: 'flex', flexDirection: 'row' }}>
         <div className="container">
           <div className="box" style={{ marginTop: '300px' }}>
-            <PoseDetection />
+            <PoseDetectionPushup />
           </div>
           <div className="box red-box">
             <div className="red-box-content">status:______</div>
