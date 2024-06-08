@@ -1,31 +1,38 @@
-import React, {useState} from 'react';
 import leaderboardData from './leaderBoardData';
+import axios from "axios";
+import {useState, useEffect} from "react";
+import process from 'process';
 
+const HOST = process.env.HOST;
 const Leaderboard = () => {
 
-    const [filter1, setFilter1] = useState('all'); // State for first dropdown
-    const [filter2, setFilter2] = useState('all'); // State for second dropdown
+    const [filter, setFilter] = useState('all'); // State for first dropdown
+    // const [filter2, setFilter2] = useState('all'); // State for second dropdown
 
-    const handleFilterChange = (e, filterType) => {
+    useEffect(() => {
+        getExercises();
+    }, []);
+    const getExercises = async () => {
+        const response = await axios.get(`http://${HOST}/tracking/exercises`);
+        print(response);
+    }
+
+    const handleFilterChange = (e) => {
         const value = e.target.value;
-        if (filterType === 'filter1') {
-          setFilter1(value);
-        } else if (filterType === 'filter2') {
-          setFilter2(value);
-        }
-        // You can add logic here to fetch and update data based on filters
+        setFilter(value);
+        
     };
 
-    const filteredData = () => {
-        let filtered = leaderboardData;
-        if (filter1 !== 'all') {
-          filtered = filtered.filter(player => player[filter1] > 0);
-        }
-        if (filter2 !== 'all') {
-          filtered = filtered.filter(player => player[filter2]);
-        }
-        return filtered;
-    };
+    // const filteredData = () => {
+    //     let filtered = leaderboardData;
+    //     if (filter1 !== 'all') {
+    //       filtered = filtered.filter(player => player[filter1] > 0);
+    //     }
+    //     if (filter2 !== 'all') {
+    //       filtered = filtered.filter(player => player[filter2]);
+    //     }
+    //     return filtered;
+    // };
 
     return (
         <div className="">
