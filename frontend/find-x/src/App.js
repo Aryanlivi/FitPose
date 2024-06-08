@@ -8,6 +8,7 @@ import Pose from './Pages/Pose';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import LoginButton from './components/LoginButton';
 import Signin from './Pages/Signin';
+import Compete from './Pages/Compete';
 
 const Dashboard = () => <h1>Dashboard</h1>;
 const Profile = () => <h1>Profile</h1>;
@@ -31,6 +32,7 @@ function App() {
               <Route path="/settings" element={<Settings />} />
               <Route path="/pose" element={<Pose />} />
               <Route path="/signin" element={<Signin />} />
+              <Route path='/compete' element={<Compete />} />
           </Routes>
       </div>
     </Router>
