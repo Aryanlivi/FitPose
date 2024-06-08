@@ -2,13 +2,14 @@ import React from 'react'
 
 const Sidebar = () => {
   return (
-    <div className="bg-gray-700 text-white w-32 h-screen p-4 fixed left-0 top-16 z-10">
-        <div className="flex flex-col items-center">
-            <h2 className="text-xl font-bold mb-4">Leaderboard</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-            <p>Curabitur vel turpis feugiat, posuere eros in, congue nunc.</p>
-            <p>Integer vel dolor nec tortor tincidunt convallis.</p>
-        </div>
+    <div 
+        style={{ marginTop: '10px', height: '100vh', borderRadius: '50px',marginLeft:'5px', textAlign: 'center' }} 
+        className="bg-gray-700 text-white w-32 p-4 fixed left-0 top-16 z-10"
+    >
+        <a href="#home"><i class="fa fa-fw fa-home"></i> Home</a>
+        <a href="#services"><i class="fa fa-fw fa-wrench"></i> Services</a>
+        <a href="#clients"><i class="fa fa-fw fa-user"></i> Clients</a>
+        <a href="#contact"><i class="fa fa-fw fa-envelope"></i> Contact</a>
     </div>
   )
 }
