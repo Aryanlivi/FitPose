@@ -19,17 +19,17 @@ function App() {
 
   return (
     <Router>
-    <div>
-        <Navbar />
-        <Sidebar />
-        <Routes>
-            <Route path="/dashboard" component={Dashboard} />
-            <Route path="/profile" component={Profile} />
-            <Route path="/settings" component={Settings} />
-        </Routes>
-        <Home />
-    </div>
-</Router>
+      <div>
+          {/* <Navbar /> */}
+          <Sidebar />
+          <Routes>
+              <Route path="/dashboard" component={Dashboard} />
+              <Route path="/profile" component={Profile} />
+              <Route path="/settings" component={Settings} />
+          </Routes>
+          <Home />
+      </div>
+    </Router>
   );
 }
 
