@@ -8,8 +8,6 @@ const Leaderboard = () => {
     const [filter, setFilter] = useState([]); // State for list of exercises
     const [chosenValue, setChosenValue] = useState('');
     const [leaderboardData, setLeaderboardData] = useState([]);
-    const [filter1, setFilter1] = useState('all'); // State for first dropdown
-    const [filter2, setFilter2] = useState('all'); // State for second dropdown
 
     useEffect(() => {
       getExercises();        
