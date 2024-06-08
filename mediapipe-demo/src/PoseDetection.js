@@ -71,7 +71,7 @@ const PoseDetection = () => {
                 connectParts(canvasCtx, results)
                 // showLandmarkNames(results,canvasCtx,canvasElement)
                 checkPushup(results, canvasCtx, canvasElement)
-                // checkSquat(results, canvasCtx, canvasElement)
+                //checkSquat(results, canvasCtx, canvasElement)
             }
             canvasCtx.restore();
         }

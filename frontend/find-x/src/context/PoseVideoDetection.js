@@ -7,7 +7,7 @@ import { LANDMARK_NAMES, NAME_BASED_CONNECTIONS, POSE_CONNECTIONS } from '../con
 import checkPushup from '../constants/Pushup';
 
 
-const VIDEO="./bad_pushup.mp4"
+const VIDEO="./good_pushups.mp4"
 //This is just for Testing.
 const PoseVideoDetection = () => {
     const videoRef = useRef(null);
