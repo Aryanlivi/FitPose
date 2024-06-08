@@ -40,20 +40,20 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',    
 ]
-MY_APPS=[
-    'player'
-]
-INSTALLED_APPS+=MY_APPS
+
 
 # using our user auth model
 AUTH_USER_MODEL = "user.User"
 
 MY_APPS=[
     'user',
+    'player',
+    'django_filters',
     'djoser',
     'rest_framework',
     'findx',
     'tracking'
+    
     ]
 INSTALLED_APPS+=MY_APPS
 MIDDLEWARE = [
