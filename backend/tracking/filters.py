@@ -9,7 +9,7 @@ class LeaderboardFilter(FilterSet):
         fields={
             'personal_highest':['lt','gt']  
         }
-        order_by=['personal_count','competitive_count','personal_highest','competitive_highest']
+        order_by=['-personal_count','competitive_count','personal_highest','competitive_highest']
     
     def filter_user_name(self, queryset, name, search_term):
         return queryset.filter(user_username__icontains=search_term)\

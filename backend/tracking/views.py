@@ -25,7 +25,7 @@ class LeaderboardViewSet(ModelViewSet):
     filterset_class = LeaderboardFilter
     ordering_fields = ['personal_count', 'competitive_count'] 
     #default ordering
-    ordering = ['personal_count'] 
+    ordering = ['-personal_count'] 
     def get_queryset(self):
         exercise_type = self.request.query_params.get('exercise_type')
         sort_by=self.request
