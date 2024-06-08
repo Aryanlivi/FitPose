@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import leaderboardData from './leaderBoardData';
+import { firstBadge, secondBadge, thirdBadge } from '../assets';
 
 const Leaderboard = () => {
 
@@ -63,7 +64,7 @@ const Leaderboard = () => {
                 <tr key={player.id}>
                 <td className="p-2">{player.name}</td>
                 <td className="p-2">{player.score}</td>
-                <td className="p-2">{player.badge}</td>
+                <td className="p-2"><img src={firstBadge} alt='first_badge'/></td>
                 </tr>
             ))}
             </tbody>
