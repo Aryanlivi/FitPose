@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework.viewsets import ModelViewSet
-from .serializers import PersonalSerializer,LeaderboardSerializer
-from .models import Personal,Leaderboard
+from .serializers import PersonalSerializer,LeaderboardSerializer,ExercisesSerializer
+from .models import Personal,Leaderboard,Exercises
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import OrderingFilter
 from .filters import LeaderboardFilter
@@ -15,6 +15,10 @@ class PersonalViewSet(ModelViewSet):
     def get_serializer_class(self):
         return PersonalSerializer
     
+class ExercisesViewSet(ModelViewSet):
+    http_method_names=['get','head','options']
+    queryset=Exercises.objects.all()
+    serializer_class=ExercisesSerializer
 class LeaderboardViewSet(ModelViewSet):
     http_method_names = ['get','post','patch','head','options']
     filter_backends = (DjangoFilterBackend, OrderingFilter)

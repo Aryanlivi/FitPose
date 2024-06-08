@@ -22,6 +22,10 @@ class PersonalSerializer(serializers.ModelSerializer):
             leaderboard_instance.save()
             return  personal_instance
         
+class ExercisesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=Exercises
+        fields=['id','name']
 class LeaderboardSerializer(serializers.ModelSerializer):
     exercise_name=serializers.SerializerMethodField()
     username=serializers.SerializerMethodField()
