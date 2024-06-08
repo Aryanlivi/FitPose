@@ -74,10 +74,16 @@ function checkPushup(results,canvasCtx,canvasElement){// Calculate and display t
     // displayInCanvas(rightHipAngle,rightHip,canvasCtx,canvasElement)
 
     displayPushupCount(canvasCtx,canvasElement,pushupCount);
-    if(pushupState=='up' || pushupState=='down'){
-        return true
-    }
-    return false
+    // let form;
+    // if(pushupState=='up' || pushupState=='down'){
+    //     form=true
+    //     return form
+    // }
+    // else{
+    //     form=false
+    // }
+
+    return {status:pushupState,count:pushupCount}
     
 }
 

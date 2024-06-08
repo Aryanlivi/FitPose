@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef ,useState} from 'react';
 import { Pose } from '@mediapipe/pose';
 import { Camera } from '@mediapipe/camera_utils';
 import { drawConnectors, drawLandmarks } from '@mediapipe/drawing_utils';
@@ -6,13 +6,25 @@ import calculateAngle,{removeByindices} from '../constants/PoseUtility';
 import { LANDMARK_NAMES, NAME_BASED_CONNECTIONS,POSE_CONNECTIONS } from '../constants/PoseConstants';
 import checkPushup from '../constants/Pushup';
 import checkSquat from '../constants/Squat';
+import axios from 'axios';
 
 //This is just for Testing.
+const HOST = '127.0.0.1:8000'
 const PoseDetectionPushup = () => {
     const videoRef = useRef(null);
     const canvasRef = useRef(null);
     const textRef=useRef(null);
+    const [count,setCount] = useState(0);
+    const handleComplete=async()=>{
+        const userId = sessionStorage.getItem('userId');
+        //const access_token = sessionStorage.getItem('access_token');
+        console.log(userId)
+        console.log('count',count)
 
+        axios.post(`http://${HOST}/tracking/personal/`,{'user':userId,'count':count,'exercise_type':1});
+    }
+    //const statusRef=useRef(null);
+    const countRef=useRef(null);
     useEffect(() => {
         const pose = new Pose({
             locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/pose/${file}`
@@ -56,6 +68,8 @@ const PoseDetectionPushup = () => {
             const canvasElement = canvasRef.current;
             const canvasCtx = canvasElement.getContext('2d');
             const textElement=textRef.current
+            //const statusElement=statusRef.current
+            const countElement=countRef.current
             updateCanvas(results,canvasCtx,canvasElement)
             
             if (results.poseLandmarks) {
@@ -68,15 +82,17 @@ const PoseDetectionPushup = () => {
                 const allLandmarksVisible=leftLandmarkVisibility||rightLandmarkVisibility
                 // const allLandmarksVisible=true
                 if(allLandmarksVisible){
-                    // showLandmarkNames(results,canvasCtx,canvasElement)
-                    const isGoodForm=checkPushup(results, canvasCtx, canvasElement)
-                    let connectionColor='red';
-                    if(isGoodForm){
-                        connectionColor='green';
-                    }
-                    connectParts(canvasCtx, results,connectionColor)
-                    checkPushup(results, canvasCtx, canvasElement)
+                    //showLandmarkNames(results,canvasCtx,canvasElement)
+                    // let connectionColor='red';
+                    // if(pushupOp.form){
+                    //     connectionColor='green';
+                    // }
+                    connectParts(canvasCtx, results,'red')
+                    const pushupOp=checkPushup(results, canvasCtx, canvasElement)
                     textElement.textContent="Start"
+                    //statusElement.textContent=`Status:${pushupOp.status}`
+                    countElement.textContent=`Count:${pushupOp.count}`
+                    setCount(pushupOp.count);
                 }             
                 else{
                     textElement.textContent="Go Further away!"
@@ -98,8 +114,14 @@ const PoseDetectionPushup = () => {
             {/* <video ref={videoRef} src="/pushup.mp4" style={{ display: 'none' }} /> */}
             {/* <button onClick={() => videoRef.current && videoRef.current.play()}>Start Video</button> */}
             <canvas ref={canvasRef} width="640" height="480" />
+            <br></br>
             <text ref={textRef} style={{fontSize:'50px'}}></text>
+            <br></br>
+            <text ref={countRef} style={{fontSize:'50px',marginTop:'40px'}}></text>
+            <br></br>
+            <button onClick={()=>{handleComplete()}}>Complete</button>
         </div>
+        
         
     );
 };
