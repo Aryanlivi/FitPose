@@ -7,12 +7,13 @@ import Sidebar from './components/Sidebar';
 import Pose from './Pages/Pose';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import LoginButton from './components/LoginButton';
-import Signin from './Pages/Signin';
+import SignIn from './Pages/SignIn';
+import SignedIn from './Pages/SignedIn';
+
 
 const Dashboard = () => <h1>Dashboard</h1>;
 const Profile = () => <h1>Profile</h1>;
 const Settings = () => <h1>Settings</h1>;
-
 function App() {
 
   const { user } = useAuth0();

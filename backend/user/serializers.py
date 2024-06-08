@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from djoser.serializers import UserSerializer as BaseUserSerializer
+from player.models import Player
 from user.models import User
 from rest_framework_simplejwt.tokens import RefreshToken,AccessToken
 
@@ -40,8 +41,13 @@ class GoogleSignInSerializer(serializers.ModelSerializer):
         refresh = RefreshToken.for_user(user)
         access = AccessToken.for_user(user)
         player = user.player
+        print(user)
+        print(player)
+        print(player.weight,player.height,player.gender,player.dob)
         if not (player.weight and player.height and player.gender and player.dob):
             data['new_user'] = True
+        else:
+            data['new_user'] = False
         # Include refresh token and access token
         data['refresh_token'] = str(refresh)
         data['access_token']=str(access)
