@@ -8,7 +8,6 @@ import Pose from './Pages/Pose';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import LoginButton from './components/LoginButton';
 import SignIn from './Pages/SignIn';
-import SignedIn from './Pages/SignedIn';
 
 
 const Dashboard = () => <h1>Dashboard</h1>;
@@ -26,12 +25,12 @@ function App() {
           {/* <Navbar /> */}
           <Sidebar />
           <Routes>
-              <Route path="/" element={<Home />} />
+              <Route path="/signin" exact element={<SignIn />} />
+              <Route path="/" exact element={<Home />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/settings" element={<Settings />} />
               <Route path="/pose" element={<Pose />} />
-              <Route path="/signin" element={<Signin />} />
           </Routes>
       </div>
     </Router>

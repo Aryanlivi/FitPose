@@ -17,6 +17,7 @@ const Sidebar = () => {
     useEffect(() => {
         console.log("Is the user authenticated: ", isAuthenticated);
         console.log(user);
+        
         loginWithDjango();
     }, [isAuthenticated])
 
@@ -24,12 +25,17 @@ const Sidebar = () => {
         let response; 
         try{
             response = await axios.post(`http://${HOST}/user/login/`,user);
-            console.log('response')
-            console.log(response.data)
+            
+            sessionStorage.setItem('userId',response.data.id);
+            sessionStorage.setItem('access_token',response.data.access_token);   
+            sessionStorage.setItem('playerId',response.data.player_id); 
+            console.log('tokens')        
+            console.log(response.data.id)
+            console.log(response.data.access_token)
             if (response.data.new_user == true) {
                 navigate('/signin');
             } else {
-                navigate('/signedin');
+                navigate('/pose');
             }
         }catch(error){            
             console.log(error);

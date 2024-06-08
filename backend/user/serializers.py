@@ -48,6 +48,7 @@ class GoogleSignInSerializer(serializers.ModelSerializer):
             data['new_user'] = True
         else:
             data['new_user'] = False
+        data['player_id'] = player.id
         # Include refresh token and access token
         data['refresh_token'] = str(refresh)
         data['access_token']=str(access)
