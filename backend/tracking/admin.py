@@ -16,4 +16,4 @@ class CompetitionAdmin(admin.ModelAdmin):
 
 @admin.register(Personal)
 class PersonalAdmin(admin.ModelAdmin):
-    pass
+    list_display=['id','user_id','user','exercise_type','count','created_at']

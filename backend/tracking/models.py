@@ -7,6 +7,9 @@ class Exercises(models.Model):
     description = models.CharField(max_length=300)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return self.name
+
 class Leaderboard(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
     exercise_type = models.ForeignKey(Exercises,on_delete=models.CASCADE)
@@ -33,5 +36,3 @@ class Personal(models.Model):
     count = models.IntegerField(default=0)    
     created_at = models.DateTimeField(auto_now_add=True)
 
-    class Meta:
-        unique_together = ('user','exercise_type')
