@@ -1,10 +1,25 @@
-import React from 'react'
+import {React ,useEffect} from 'react'
 import { useAuth0 } from "@auth0/auth0-react";
+import axios from "axios";
 
+const HOST='127.0.0.1:8000';
 const Sidebar = () => {
 
-    const { loginWithRedirect, isAuthenticated, logout } = useAuth0();
+    const { loginWithRedirect, isAuthenticated, logout,user } = useAuth0();
 
+    const handleLogin = () => {        
+        loginWithRedirect();        
+    }
+    useEffect(() => {
+        console.log("Is the user authenticated: ", isAuthenticated);
+        console.log(user);
+        loginWithDjango();
+    })
+
+    const loginWithDjango = async () => {
+        const response = await axios.post(`http://${HOST}/user/login/`,user);
+        console.log(response);               
+    }
     return (
         <div 
             style={{ marginTop: '10px', height: '100vh', borderRadius: '50px',marginLeft:'10px', display: 'flex', flexDirection: 'column', alignItems: 'center'}} 
@@ -49,7 +64,7 @@ const Sidebar = () => {
             </a>
             {
                 !isAuthenticated && (
-                    <button onClick={() => loginWithRedirect()} className="text-white hover:bg-gray-700 px-3 py-2 rounded">Login</button>
+                    <button onClick={() => handleLogin()} className="text-white hover:bg-gray-700 px-3 py-2 rounded">Login</button>
                 )
             }
             {

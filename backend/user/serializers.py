@@ -38,6 +38,9 @@ class GoogleSignInSerializer(serializers.ModelSerializer):
         data = super().to_representation(user)        
         refresh = RefreshToken.for_user(user)
         access = AccessToken.for_user(user)
+        player = user.player
+        if not (player.weight and player.height and player.gender and player.dob):
+            data['new_user'] = True
         # Include refresh token and access token
         data['refresh_token'] = str(refresh)
         data['access_token']=str(access)
