@@ -18,10 +18,12 @@ const Home = () => {
                 </div>
             </div>
         </div>
-    
-        <div className="w-7/10 bg-gray-200 p-4">
-            <PoseVideoDetection />
-            {/* <PoseDetection /> */}
+
+        <div>
+            <div className="bg-gray-200 p-4" style={{ display: 'flex', flexDirection: 'column' }}>
+                {/* <PoseVideoDetection /> */}
+                <PoseDetection />
+            </div>
         </div>
     </div>
   )

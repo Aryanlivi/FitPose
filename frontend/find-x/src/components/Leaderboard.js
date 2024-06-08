@@ -1,4 +1,5 @@
 import leaderboardData from './leaderBoardData';
+import { firstBadge, secondBadge, thirdBadge } from '../assets';
 import axios from "axios";
 import {useState, useEffect} from "react";
 
@@ -78,7 +79,7 @@ const Leaderboard = () => {
             <tr key={player.id}>
             <td className="p-2">{player.username}</td>
             <td className="p-2">{player.personal_count+player.competitive_count}</td>
-            <td className="p-2">Noob</td>
+            <td className="p-2">{firstBadge}</td>
             </tr>
         ))}
         </tbody>
