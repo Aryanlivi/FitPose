@@ -1,11 +1,26 @@
 from rest_framework import serializers
-from .models import Personal,Leaderboard
+from .models import Personal,Leaderboard,Exercises
+from user.models import User
+from django.db import transaction
 
 class PersonalSerializer(serializers.ModelSerializer):
-    user_id = serializers.IntegerField()    
+    # user_id = serializers.IntegerField()    
     class Meta:
         model = Personal
-        fields= ['user_id','exercise_type','count','created_at']        
+        fields= ['user','exercise_type','count','created_at']   
+    def create(self, validated_data):  
+        with transaction.atomic():      
+            
+            user = validated_data.pop('user')
+            
+            exercise=validated_data.pop('exercise_type')
+            personal_instance = Personal.objects.create(user_id=user.id, exercise_type_id=exercise.id,**validated_data)
+            #get or create leaderboard 
+            leaderboard_instance,created=Leaderboard.objects.get_or_create(user_id=user.id,exercise_type_id=exercise.id)
+            count=validated_data.get('count')
+            leaderboard_instance.personal_count+=count
+            leaderboard_instance.save()
+            return  personal_instance
         
 class LeaderboardSerializer(serializers.ModelSerializer):
     exercise_name=serializers.SerializerMethodField()
