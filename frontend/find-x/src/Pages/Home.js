@@ -3,7 +3,10 @@ import LandingScreen from '../components/LandingScreen';
 import LoginButton from '../components/LoginButton';
 import Leaderboard from '../components/Leaderboard';
 import PoseVideoDetection from '../context/PoseVideoDetection';
-import PoseDetection from '../context/PoseDetection';
+import PoseDetectionSquat from '../context/PoseDetectionSquat';
+import PoseDetectionPushup from '../context/PoseDetectionPushup';
+import ComparisonPose from '../context/ComparisionPose';
+
 
 const Home = () => {
   return (
@@ -22,7 +25,8 @@ const Home = () => {
         <div>
             <div className="bg-gray-200 p-4" style={{ display: 'flex', flexDirection: 'column' }}>
                 {/* <PoseVideoDetection /> */}
-                <PoseDetection />
+                {/* <ComparisonPose/> */}
+                <PoseDetectionSquat />
             </div>
         </div>
     </div>

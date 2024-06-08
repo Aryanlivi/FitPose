@@ -15,7 +15,7 @@ function displayPushup(canvasCtx,canvasElement,text){
 function displayPushupCount(canvasCtx,canvasElement,count){
     canvasCtx.font = '32px Arial';
     canvasCtx.fillStyle = 'red';
-    canvasCtx.fillText(`PushUp Count:${count}`, 10, 60);
+    // canvasCtx.fillText(`PushUp Count:${count}`, 10, 60);
 }
 let pushupState = 'bad';
 let pushupCount = 0; // Counter for completed pushups
@@ -63,7 +63,7 @@ function checkPushup(results,canvasCtx,canvasElement){// Calculate and display t
             pushupCount++;
         }
         pushupState = 'up';
-        displayPushup(canvasCtx,canvasElement,"Pushup Start")
+        // displayPushup(canvasCtx,canvasElement,"Pushup Start")
     }
     //down in pushup
     if(rightArmAngle<70 && leftArmAngle <80 && leftHipAngle>100 && rightHipAngle>100 && isNoseBelow){

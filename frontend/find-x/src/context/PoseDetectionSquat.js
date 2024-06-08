@@ -8,7 +8,7 @@ import checkPushup from '../constants/Pushup';
 import checkSquat from '../constants/Squat';
 
 //This is just for Testing.
-const PoseDetection = () => {
+const PoseDetectionSquat = () => {
     const videoRef = useRef(null);
     const canvasRef = useRef(null);
     const textRef=useRef(null);
@@ -110,7 +110,7 @@ const PoseDetection = () => {
                         connectionColor='green';
                     }
                     connectParts(canvasCtx, results,connectionColor)
-                    //checkSquat(results, canvasCtx, canvasElement)
+                    checkSquat(results, canvasCtx, canvasElement)
                     textElement.textContent="Start"
                 }             
                 else{
@@ -139,4 +139,4 @@ const PoseDetection = () => {
     );
 };
 
-export default PoseDetection;
+export default PoseDetectionSquat;
