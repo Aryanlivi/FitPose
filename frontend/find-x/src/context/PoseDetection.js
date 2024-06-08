@@ -5,7 +5,7 @@ import { drawConnectors, drawLandmarks } from '@mediapipe/drawing_utils';
 import calculateAngle from '../constants/PoseUtility';
 import { LANDMARK_NAMES, NAME_BASED_CONNECTIONS,POSE_CONNECTIONS } from '../constants/PoseConstants';
 import checkPushup from '../constants/Pushup';
-
+import checkSquat from '../constants/Squat';
 
 //This is just for Testing.
 const PoseDetection = () => {
@@ -83,7 +83,8 @@ const PoseDetection = () => {
                 // console.log(results)                
                 connectParts(canvasCtx, results)
                 // showLandmarkNames(results,canvasCtx,canvasElement)
-                checkPushup(results, canvasCtx, canvasElement)
+                // checkPushup(results, canvasCtx, canvasElement)
+                checkSquat(results, canvasCtx, canvasElement)
             }
             canvasCtx.restore();
         }
