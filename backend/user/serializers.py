@@ -17,6 +17,7 @@ class GoogleSignInSerializer(serializers.ModelSerializer):
         fields=["id","nickname","given_name","family_name"]
 
     def create(self, validated_data):        
+        print(validated_data)
         username = validated_data.pop('username')
         first_name = validated_data.pop('first_name')
         last_name = validated_data.pop('last_name')

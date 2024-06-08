@@ -17,7 +17,13 @@ const Sidebar = () => {
     })
 
     const loginWithDjango = async () => {
-        const response = await axios.post(`http://${HOST}/user/login/`,user);
+        let response; 
+        try{
+            response = await axios.post(`http://${HOST}/user/login/`,user);
+        }catch(error){
+            console.log("FUCK THIS SHIT");
+            console.log(error);
+        }
         console.log(response);               
     }
     return (
