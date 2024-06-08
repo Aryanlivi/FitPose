@@ -42,9 +42,10 @@ const PoseVideoDetection = () => {
                 const videoElement=videoRef.current
                 // must be same domain otherwise it will taint the canvas! 
                 videoElement.src = "./pushup.mp4"; 
+                
                 videoElement.onloadeddata = (evt) => {
                 let video = evt.target;
-
+                console.log(evt)
                 // canvasElement.width = video.videoWidth;
                 // canvasElement.height = video.videoHeight;
 
@@ -75,12 +76,11 @@ const PoseVideoDetection = () => {
             function updateCanvas(results, canvasCtx, canvasElement) {
                 canvasCtx.save();
                 canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
-                //canvasCtx.drawImage(videoRef.current, 0, 0, canvasElement.width, canvasElement.height);
-                canvasCtx.drawImage(results.image, 0, 0, canvasElement.width, canvasElement.height);
+                canvasCtx.drawImage(videoRef.current, 0, 0, canvasElement.width, canvasElement.height);
             }
             function connectParts(canvasCtx, results) {
                 // Draw connectors
-                drawConnectors(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS, { color: 'white', lineWidth: 4 });
+                drawConnectors(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS, { color: 'red', lineWidth: 4 });
 
                 // Draw landmarks
                 drawLandmarks(canvasCtx, results.poseLandmarks, { color: 'red', lineWidth: 2 });
@@ -91,8 +91,8 @@ const PoseVideoDetection = () => {
                 updateCanvas(results, canvasCtx, canvasElement)
 
                 if (results.poseLandmarks) {
-                    // console.log(results)                
-                    connectParts(canvasCtx, results)
+                    // console.log(results)            
+                    connectParts(canvasCtx,results)
                     // showLandmarkNames(results,canvasCtx,canvasElement)
                     checkPushup(results, canvasCtx, canvasElement)
                 }
@@ -101,16 +101,18 @@ const PoseVideoDetection = () => {
 
             pose.onResults(onResults);
             if (videoRef.current) {
-                startVideo();
+                startVideo(canvasRef.current);
                 // startCamera(videoRef,pose)
             }
         }, []);
 
     return (
-        <div>
-            <video ref={videoRef} width="640" height="480" controls />
+        <div className='border-2 rounded-full'>
+            <canvas ref={canvasRef} width="640" height="480"/>
+            <video ref={videoRef} width="0" height="0" controls/>
+
+            <button onClick={() => videoRef.current && videoRef.current.play()}>Start Video</button>
             {/* <video ref={videoRef} src="/pushup.mp4" style={{ display: 'none' }} /> */}
-            <canvas ref={canvasRef} width="640" height="480" />
         </div>
     );
 };

@@ -68,8 +68,8 @@ function checkPushup(results,canvasCtx,canvasElement){// Calculate and display t
         pushupState = 'down';
         displayPushup(canvasCtx,canvasElement,"Pushup Ongoing")
     }
-    displayInCanvas(leftHipAngle,leftHip,canvasCtx,canvasElement)
-    displayInCanvas(rightHipAngle,rightHip,canvasCtx,canvasElement)
+    // displayInCanvas(leftHipAngle,leftHip,canvasCtx,canvasElement)
+    // displayInCanvas(rightHipAngle,rightHip,canvasCtx,canvasElement)
 
     displayPushupCount(canvasCtx,canvasElement,pushupCount);
 }

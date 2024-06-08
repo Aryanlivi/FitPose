@@ -1,4 +1,5 @@
 
+//This is from Chatgpt.
 function calculateAngle(A, B, C) {
 
     // Calculate vectors AB and BC

@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-#8338s_1=cuwqozfy$cawjaey)vee8f28)f532qxwg!i#$_#-n
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -40,23 +40,25 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',    
 ]
-MY_APPS=[
-    'player'
-]
-INSTALLED_APPS+=MY_APPS
+
 
 # using our user auth model
 AUTH_USER_MODEL = "user.User"
 
 MY_APPS=[
     'user',
+    'player',
+    'django_filters',
     'djoser',
     'rest_framework',
     'findx',
-    'tracking'
+    'tracking',
+    'corsheaders',
+    
     ]
 INSTALLED_APPS+=MY_APPS
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -65,6 +67,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+CORS_ALLOW_ALL_ORIGINS = True
 
 ROOT_URLCONF = 'findx.urls'
 

@@ -1,12 +1,33 @@
-import React from 'react'
+import {React ,useEffect} from 'react'
 import { useAuth0 } from "@auth0/auth0-react";
 import { competition, profile, tools, house, person } from '../assets';
 import { Link } from 'react-router-dom';
+import axios from "axios";
 
+const HOST='127.0.0.1:8000';
 const Sidebar = () => {
 
-    const { loginWithRedirect, isAuthenticated, logout, user } = useAuth0();
+    const { loginWithRedirect, isAuthenticated, logout,user } = useAuth0();
 
+    const handleLogin = () => {        
+        loginWithRedirect();        
+    }
+    useEffect(() => {
+        console.log("Is the user authenticated: ", isAuthenticated);
+        console.log(user);
+        loginWithDjango();
+    })
+
+    const loginWithDjango = async () => {
+        let response; 
+        try{
+            response = await axios.post(`http://${HOST}/user/login/`,user);
+        }catch(error){
+            console.log("FUCK THIS SHIT");
+            console.log(error);
+        }
+        console.log(response);               
+    }
     return (
         <nav>
             <div 

@@ -31,12 +31,15 @@ function checkPushup(results,canvasCtx,canvasElement){// Calculate and display t
     const rightHip =results.poseLandmarks[LANDMARK_NAMES['right_hip']];
     const leftKnee =results.poseLandmarks[LANDMARK_NAMES['left_knee']];
     const rightKnee =results.poseLandmarks[LANDMARK_NAMES['right_knee']];
+    const leftFootIndex = results.poseLandmarks[LANDMARK_NAMES['left_foot_index']];
+    const rightFootIndex = results.poseLandmarks[LANDMARK_NAMES['right_foot_index']];
     
     let leftArmAngle;
     let rightArmAngle;
     let leftHipAngle;
     let rightHipAngle;
     let isNoseBelow;
+    
     if (rightShoulder && rightElbow && rightWrist) {
         rightArmAngle = calculateAngle(rightShoulder, rightElbow, rightWrist);    
     }
@@ -68,6 +71,7 @@ function checkPushup(results,canvasCtx,canvasElement){// Calculate and display t
         pushupState = 'down';
         displayPushup(canvasCtx,canvasElement,"Pushup Ongoing")
     }
+    
     displayInCanvas(leftHipAngle,leftHip,canvasCtx,canvasElement)
     displayInCanvas(rightHipAngle,rightHip,canvasCtx,canvasElement)
 

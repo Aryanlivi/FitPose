@@ -17,6 +17,7 @@ class GoogleSignInSerializer(serializers.ModelSerializer):
         fields=["id","nickname","given_name","family_name"]
 
     def create(self, validated_data):        
+        print(validated_data)
         username = validated_data.pop('username')
         first_name = validated_data.pop('first_name')
         last_name = validated_data.pop('last_name')
@@ -38,6 +39,9 @@ class GoogleSignInSerializer(serializers.ModelSerializer):
         data = super().to_representation(user)        
         refresh = RefreshToken.for_user(user)
         access = AccessToken.for_user(user)
+        player = user.player
+        if not (player.weight and player.height and player.gender and player.dob):
+            data['new_user'] = True
         # Include refresh token and access token
         data['refresh_token'] = str(refresh)
         data['access_token']=str(access)

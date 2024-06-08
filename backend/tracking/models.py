@@ -21,6 +21,9 @@ class Leaderboard(models.Model):
 
     class Meta:
         unique_together = ('user','exercise_type')
+        
+    def __str__(self):
+        return f"{self.user.username} Leaderboard"
 
 class Competition(models.Model):
     exercise_type = models.ForeignKey(Exercises,on_delete=models.CASCADE)
