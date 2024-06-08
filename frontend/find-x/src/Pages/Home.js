@@ -33,7 +33,7 @@ const Home = () => {
                     Enable Video
                 </button>
                 {
-                    enableVideo ? <PoseDetection /> : null
+                    enableVideo ? <PoseDetectionSquat /> : null
                 }
             </div>
         </div>

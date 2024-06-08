@@ -6,6 +6,9 @@ function displayInCanvas(angle,bodypart,canvasCtx,canvasElement){
     canvasCtx.fillStyle = 'red';
     canvasCtx.fillText(`Angle: ${angle.toFixed(2)}°`, bodypart.x * canvasElement.width, bodypart.y * canvasElement.height - 10);
 }
+
+let squatState = 'up';
+let squatCount = 0; 
 export default function checkSquat(results,canvasCtx,canvasElement){// Calculate and display the angle between elbow and arm
     const leftHip =results.poseLandmarks[LANDMARK_NAMES['left_hip']];
     const rightHip =results.poseLandmarks[LANDMARK_NAMES['right_hip']];
@@ -21,17 +24,20 @@ export default function checkSquat(results,canvasCtx,canvasElement){// Calculate
     let rightHipAngle;
     if(leftAnkle &&leftHip &&leftKnee&&leftShoulder){
         leftKneeAngle=calculateAngle(leftHip,leftKnee,leftAnkle)
-        leftHipAngle=calculateAngle(leftShoulder,leftHip,leftAnkle)
+        leftHipAngle=calculateAngle(leftShoulder,leftHip,leftKnee)
     }
     if(rightAnkle &&rightHip &&rightKnee){
         rightKneeAngle=calculateAngle(rightHip,rightKnee,rightAnkle)
-        rightHipAngle=calculateAngle(rightShoulder,rightHip,rightAnkle)
+        rightHipAngle=calculateAngle(rightShoulder,rightHip,rightKnee)
     } 
+    if(leftKneeAngle>165 && rightKneeAngle >165 && leftKneeAngle<360 && rightKneeAngle <360 ){
+
+    }
     if(leftKneeAngle<90 && rightKneeAngle <90){
-        console.log("asds")
+        
     };
         displayInCanvas(leftHipAngle,leftHip,canvasCtx,canvasElement)
-        displayInCanvas(rightHipAngle,rightKnee,canvasCtx,canvasElement)
+        // displayInCanvas(rightHipAngle,rightKnee,canvasCtx,canvasElement)
 
     }
 
