@@ -37,8 +37,8 @@ function checkPushup(results,canvasCtx,canvasElement){// Calculate and display t
     let leftHipAngle;
     let rightHipAngle;
     let isNoseBelow=false;
-    let isHipCorrect=false;
-    let isArmCorrect=false;
+    // let isHipCorrect=false;
+    // let isArmCorrect=false;
     if (rightShoulder && rightElbow && rightWrist) {
         rightArmAngle = calculateAngle(rightShoulder, rightElbow, rightWrist);    
     }
@@ -59,7 +59,6 @@ function checkPushup(results,canvasCtx,canvasElement){// Calculate and display t
     }
     //starting position and end
     if (rightArmAngle>150 && rightArmAngle<200 && leftArmAngle>150 && leftArmAngle<200 && leftHipAngle>140 && rightHipAngle>140 && !isNoseBelow){
-        isArmCorrect=true;
         if (pushupState === 'down') {
             pushupCount++;
         }
@@ -68,9 +67,8 @@ function checkPushup(results,canvasCtx,canvasElement){// Calculate and display t
     }
     //down in pushup
     if(rightArmAngle<70 && leftArmAngle <80 && leftHipAngle>100 && rightHipAngle>100 && isNoseBelow){
-        isHipCorrect=true;
-        pushupState = 'down';
-        displayPushup(canvasCtx,canvasElement,"Pushup Ongoing")
+            pushupState = 'down';
+            displayPushup(canvasCtx,canvasElement,"Pushup Ongoing")
     }
     // displayInCanvas(leftHipAngle,leftHip,canvasCtx,canvasElement)
     // displayInCanvas(rightHipAngle,rightHip,canvasCtx,canvasElement)

@@ -2,11 +2,12 @@ import React, { useEffect, useRef } from 'react';
 import { Pose } from '@mediapipe/pose';
 import { Camera } from '@mediapipe/camera_utils';
 import { drawConnectors, drawLandmarks } from '@mediapipe/drawing_utils';
-import calculateAngle from '../constants/PoseUtility';
+import calculateAngle,{removeByindices} from '../constants/PoseUtility';
 import { LANDMARK_NAMES, NAME_BASED_CONNECTIONS, POSE_CONNECTIONS } from '../constants/PoseConstants';
 import checkPushup from '../constants/Pushup';
 
-const VIDEO="./pushup.mp4"
+
+const VIDEO="./bad_pushup.mp4"
 //This is just for Testing.
 const PoseVideoDetection = () => {
     const videoRef = useRef(null);
@@ -46,7 +47,6 @@ const PoseVideoDetection = () => {
                 
                 videoElement.onloadeddata = (evt) => {
                 let video = evt.target;
-                console.log(evt)
                 // canvasElement.width = video.videoWidth;
                 // canvasElement.height = video.videoHeight;
 
@@ -79,12 +79,9 @@ const PoseVideoDetection = () => {
                 canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
                 canvasCtx.drawImage(videoRef.current, 0, 0, canvasElement.width, canvasElement.height);
             }
-            function connectParts(canvasCtx, results,connectorColor) {
-                // Draw connectors
-                drawConnectors(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS, { color: connectorColor, lineWidth: 4 });
-    
-                // Draw landmarks
+            function connectParts(canvasCtx, results,color) {
                 drawLandmarks(canvasCtx, results.poseLandmarks, { color: 'red', lineWidth: 2 });
+                drawConnectors(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS, { color: color, lineWidth: 4 });
             }
     
     
@@ -103,13 +100,12 @@ const PoseVideoDetection = () => {
                     );               
                     const allLandmarksVisible=leftLandmarkVisibility||rightLandmarkVisibility
                     if(allLandmarksVisible){
-                        // showLandmarkNames(results,canvasCtx,canvasElement)
                         const isGoodForm=checkPushup(results, canvasCtx, canvasElement)
-                        let connectorColor='red'
-                        if (isGoodForm){
-                            connectorColor='green'
+                        let connectionColor='red';
+                        if(isGoodForm){
+                            connectionColor='green';
                         }
-                        connectParts(canvasCtx, results,connectorColor)
+                        connectParts(canvasCtx, results,connectionColor)
                         //checkSquat(results, canvasCtx, canvasElement)
                         textElement.textContent="Start"
                     }             
@@ -119,27 +115,7 @@ const PoseVideoDetection = () => {
                 }
                 canvasCtx.restore();
             }
-            // function connectParts(canvasCtx, results) {
-            //     // Draw connectors
-            //     drawConnectors(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS, { color: 'red', lineWidth: 4 });
-
-            //     // Draw landmarks
-            //     drawLandmarks(canvasCtx, results.poseLandmarks, { color: 'red', lineWidth: 2 });
-            // }
-            // function onResults(results) {
-            //     const canvasElement = canvasRef.current;
-            //     const canvasCtx = canvasElement.getContext('2d');
-            //     updateCanvas(results, canvasCtx, canvasElement)
-
-            //     if (results.poseLandmarks) {
-            //         // console.log(results)            
-            //         connectParts(canvasCtx,results)
-            //         // showLandmarkNames(results,canvasCtx,canvasElement)
-            //         checkPushup(results, canvasCtx, canvasElement)
-            //     }
-            //     canvasCtx.restore();
-            // }
-
+    
             pose.onResults(onResults);
             if (videoRef.current) {
                 startVideo(canvasRef.current);
