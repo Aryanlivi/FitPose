@@ -6,6 +6,8 @@ import calculateAngle from './PoseUtility';
 import { LANDMARK_NAMES, NAME_BASED_CONNECTIONS,POSE_CONNECTIONS } from './PoseConstants';
 import checkPushup from './Pushup';
 
+
+//This is just for Testing.
 const PoseDetection = () => {
     const videoRef = useRef(null);
     const canvasRef = useRef(null);
@@ -49,16 +51,16 @@ const PoseDetection = () => {
             });
             camera.start();
         }
-        function showLandmarkNames(results, canvasCtx, canvasElement) {
-            // Annotate landmarks with names
-            for (let i = 0; i < results.poseLandmarks.length; i++) {
-                const landmark = results.poseLandmarks[i];
-                const name = Object.keys(LANDMARK_NAMES).find(key => LANDMARK_NAMES[key] === i);
-                canvasCtx.font = '10px Arial';
-                canvasCtx.fillStyle = 'blue';
-                canvasCtx.fillText(name, landmark.x * canvasElement.width, landmark.y * canvasElement.height);
-            }
-        }
+        // function showLandmarkNames(results, canvasCtx, canvasElement) {
+        //     // Annotate landmarks with names
+        //     for (let i = 0; i < results.poseLandmarks.length; i++) {
+        //         const landmark = results.poseLandmarks[i];
+        //         const name = Object.keys(LANDMARK_NAMES).find(key => LANDMARK_NAMES[key] === i);
+        //         canvasCtx.font = '10px Arial';
+        //         canvasCtx.fillStyle = 'blue';
+        //         canvasCtx.fillText(name, landmark.x * canvasElement.width, landmark.y * canvasElement.height);
+        //     }
+        // }
         function updateCanvas(results,canvasCtx,canvasElement){
             canvasCtx.save();
             canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
