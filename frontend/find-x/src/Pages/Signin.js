@@ -2,7 +2,7 @@ import React from 'react'
 import './Signin.css'
 
 const Signin = () => {
-  return (
+    return (
         <div style={{ display: 'flex', flexDirection: 'row', marginLeft: 'calc(8rem + 20px)', marginTop: '75px' }}>
                     <div className="content" style={{ width: '80vw' }}>
                         <div className="form-container">
@@ -33,7 +33,7 @@ const Signin = () => {
                         </div>
                     </div>
         </div>
-  )
+    )
 }
 
-export default Signin;
+export default SignIn;
