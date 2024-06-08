@@ -11,10 +11,10 @@ const Home = () => {
         <div style={{ display: 'flex', flexDirection: 'row' }}>
             <div style={{ display: 'fixed', flexDirection: 'column' , marginTop:'-19px' }}>
                 <div style={{ height:'300px' ,width:'300px', margin: '20px',borderRadius: '10px', borderColor: 'black', borderWidth: '2px', padding:'16px'  }} className="w-[30%]">
-                    <Leaderboard />
+                    {/* <Leaderboard /> */}
                 </div>
                 <div style={{ height:'300px', width:'300px',margin:'20px', marginRight:'40px',borderRadius: '10px', borderColor: 'black', borderWidth: '2px', padding:'16px' }} className="w-[30%]">
-                    <Leaderboard />
+                    {/* <Leaderboard /> */}
                 </div>
             </div>
         </div>
