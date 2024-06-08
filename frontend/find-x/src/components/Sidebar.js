@@ -3,11 +3,13 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { competition, profile, tools, house, person } from '../assets';
 import { Link } from 'react-router-dom';
 import axios from "axios";
+import { useNavigate } from 'react-router';
 
 const HOST='127.0.0.1:8000';
 const Sidebar = () => {
 
     const { loginWithRedirect, isAuthenticated, logout,user } = useAuth0();
+    const navigate = useNavigate();
 
     const handleLogin = () => {        
         loginWithRedirect();        
@@ -15,18 +17,30 @@ const Sidebar = () => {
     useEffect(() => {
         console.log("Is the user authenticated: ", isAuthenticated);
         console.log(user);
+        
         loginWithDjango();
-    })
+    }, [isAuthenticated])
 
     const loginWithDjango = async () => {
         let response; 
         try{
             response = await axios.post(`http://${HOST}/user/login/`,user);
-        }catch(error){
-            console.log("FUCK THIS SHIT");
+            
+            sessionStorage.setItem('userId',response.data.id);
+            sessionStorage.setItem('access_token',response.data.access_token);   
+            sessionStorage.setItem('playerId',response.data.player_id); 
+            console.log('tokens')        
+            console.log(response.data.id)
+            console.log(response.data.access_token)
+            if (response.data.new_user == true) {
+                navigate('/signin');
+            } else {
+                navigate('/pose');
+            }
+        }catch(error){            
             console.log(error);
         }
-        console.log(response);               
+        
     }
     return (
         <nav>

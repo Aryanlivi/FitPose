@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import LandingScreen from '../components/LandingScreen';
 import LoginButton from '../components/LoginButton';
 import Leaderboard from '../components/Leaderboard';
@@ -9,6 +9,9 @@ import ComparisonPose from '../context/ComparisionPose';
 
 
 const Home = () => {
+
+    const [enableVideo, setEnableVideo] = useState(false);
+
   return (
     <div style={{ display: 'flex', flexDirection: 'row' , marginLeft:'180px', marginTop:'75px'}}>
         <div style={{ display: 'flex', flexDirection: 'row' }}>
@@ -25,8 +28,13 @@ const Home = () => {
         <div>
             <div className="bg-gray-200 p-4" style={{ display: 'flex', flexDirection: 'column' }}>
                 {/* <PoseVideoDetection /> */}
-                {/* <ComparisonPose/> */}
-                <PoseDetectionSquat />
+                {/* <PoseDetection /> */}
+                <button onClick={() => setEnableVideo(true)}>
+                    Enable Video
+                </button>
+                {
+                    enableVideo ? <PoseDetection /> : null
+                }
             </div>
         </div>
     </div>
