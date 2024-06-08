@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { Pose } from '@mediapipe/pose';
 import { Camera } from '@mediapipe/camera_utils';
 import { drawConnectors, drawLandmarks } from '@mediapipe/drawing_utils';
-import calculateAngle from '../constants/PoseUtility';
+import calculateAngle,{removeByindices} from '../constants/PoseUtility';
 import { LANDMARK_NAMES, NAME_BASED_CONNECTIONS,POSE_CONNECTIONS } from '../constants/PoseConstants';
 import checkPushup from '../constants/Pushup';
 import checkSquat from '../constants/Squat';
@@ -54,17 +54,39 @@ const PoseDetection = () => {
             canvasCtx.drawImage(videoRef.current, 0, 0, canvasElement.width, canvasElement.height);
             // canvasCtx.drawImage(results.image, 0, 0, canvasElement.width, canvasElement.height);
         }
-        function connectParts(canvasCtx, results) {
-            // Draw connectors
-            drawConnectors(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS, { color: 'white', lineWidth: 4 });
+        // function connectParts(canvasCtx, results,connectorColor) {
+        //     // Draw connectors
+        //     drawConnectors(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS, { color: connectorColor, lineWidth: 4 });
 
-            // Draw landmarks
+        //     // Draw landmarks
+        //     drawLandmarks(canvasCtx, results.poseLandmarks, { color: 'red', lineWidth: 2 });
+        // }
+        function connectParts(canvasCtx, results,color) {
             drawLandmarks(canvasCtx, results.poseLandmarks, { color: 'red', lineWidth: 2 });
-        }
+            drawConnectors(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS, { color: color, lineWidth: 4 });
+            // if(postureStatusDict.status){
+            //     drawConnectors(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS, { color: 'green', lineWidth: 4 });
+            // }
+            // else{
+            //     let indexesToRemove=[LANDMARK_NAMES['right_elbow'],LANDMARK_NAMES['right_wrist'],LANDMARK_NAMES['right_shoulder'],LANDMARK_NAMES['left_elbow'],LANDMARK_NAMES['left_wrist'],LANDMARK_NAMES['left_shoulder']]
+            //     const handList=removeByindices(results.poseLandmarks,indexesToRemove)
+            //     console.log(handList)
+            //     let indexesToRemove2=[LANDMARK_NAMES['left_hip'],LANDMARK_NAMES['left_knee'],LANDMARK_NAMES['left_shoulder'],LANDMARK_NAMES['right_hip'],LANDMARK_NAMES['right_knee'],LANDMARK_NAMES['right_shoulder']]
+            //     const hipList=removeByindices(results.poseLandmarks,indexesToRemove2)
+            //     drawConnectors(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS, { color: 'green', lineWidth: 4 });
+            //     if(handList.length>0){
+            //         drawConnectors(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS, { color: 'red', lineWidth: 4 });
+            //     }
+                
+            //     if(hipList.length>0){
+            //         drawConnectors(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS, { color: 'red', lineWidth: 4 });
+            //     }
+                    
+                
+            }
+        
 
-        function displaycanvas2(canvasCtx,canvasElement){
-            
-        }
+
         function onResults(results) {
             const canvasElement = canvasRef.current;
             const canvasCtx = canvasElement.getContext('2d');
@@ -79,12 +101,16 @@ const PoseDetection = () => {
                     results.poseLandmarks[landmark].visibility>0.5
                 );               
                 const allLandmarksVisible=leftLandmarkVisibility||rightLandmarkVisibility
-                connectParts(canvasCtx, results)
-                checkSquat(results, canvasCtx, canvasElement)
+                // const allLandmarksVisible=true
                 if(allLandmarksVisible){
                     // showLandmarkNames(results,canvasCtx,canvasElement)
-                    // checkPushup(results, canvasCtx, canvasElement)
-                    checkSquat(results, canvasCtx, canvasElement)
+                    const isGoodForm=checkPushup(results, canvasCtx, canvasElement)
+                    let connectionColor='red';
+                    if(isGoodForm){
+                        connectionColor='green';
+                    }
+                    connectParts(canvasCtx, results,connectionColor)
+                    //checkSquat(results, canvasCtx, canvasElement)
                     textElement.textContent="Start"
                 }             
                 else{

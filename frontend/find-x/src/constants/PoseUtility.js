@@ -26,3 +26,16 @@ function calculateAngle(A, B, C) {
 }
 
 export default calculateAngle;
+
+
+export function removeByindices(array,indexesToRemove){
+    indexesToRemove.sort((a, b) => b - a);
+
+    indexesToRemove.forEach(index => {
+        if (index > -1 && index < array.length) {
+            array.splice(index, 1); 
+        }
+    });
+    return array;
+
+}
