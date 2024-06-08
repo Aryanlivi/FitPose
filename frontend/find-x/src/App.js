@@ -20,7 +20,7 @@ function App() {
   return (
     <Router>
     <div>
-        <Navbar />
+        {/* <Navbar /> */}
         <Sidebar />
         <Routes>
             <Route path="/dashboard" component={Dashboard} />
