@@ -6,7 +6,17 @@ function displayInCanvas(angle,bodypart,canvasCtx,canvasElement){
     canvasCtx.fillStyle = 'red';
     canvasCtx.fillText(`Angle: ${angle.toFixed(2)}°`, bodypart.x * canvasElement.width, bodypart.y * canvasElement.height - 10);
 }
+function displaySquat(canvasCtx,canvasElement,text){
+    canvasCtx.font = '32px Arial';
+    canvasCtx.fillStyle = 'red';
+    canvasCtx.fillText(`${text}`, 250, 80);
+}
 
+function displaySquatCount(canvasCtx,canvasElement,count){
+    canvasCtx.font = '32px Arial';
+    canvasCtx.fillStyle = 'red';
+    canvasCtx.fillText(`Squat Count:${count}`, 10, 60);
+}
 let squatState = 'up';
 let squatCount = 0; 
 export default function checkSquat(results,canvasCtx,canvasElement){// Calculate and display the angle between elbow and arm
@@ -30,14 +40,18 @@ export default function checkSquat(results,canvasCtx,canvasElement){// Calculate
         rightKneeAngle=calculateAngle(rightHip,rightKnee,rightAnkle)
         rightHipAngle=calculateAngle(rightShoulder,rightHip,rightKnee)
     } 
-    if(leftKneeAngle>165 && rightKneeAngle >165 && leftKneeAngle<360 && rightKneeAngle <360 ){
-
+    if(leftKneeAngle>165 && rightKneeAngle >165 && leftKneeAngle<360 && rightKneeAngle <360){
+        if (squatState === 'down') {
+            squatCount++; // Increment pushup count when transitioning from 'down' to 'up'
+        }
+        squatState = 'up';
+        displaySquat(canvasCtx,canvasElement,"Squat Start")
     }
     if(leftKneeAngle<90 && rightKneeAngle <90){
-        
+        squatState = 'down';
+        displaySquat(canvasCtx,canvasElement,"Squat Ongoing")
     };
-        displayInCanvas(leftHipAngle,leftHip,canvasCtx,canvasElement)
-        // displayInCanvas(rightHipAngle,rightKnee,canvasCtx,canvasElement)
+    displaySquatCount(canvasCtx,canvasElement,squatCount);
 
     }
 

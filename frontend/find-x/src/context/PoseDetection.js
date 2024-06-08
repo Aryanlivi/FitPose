@@ -11,6 +11,7 @@ import checkSquat from '../constants/Squat';
 const PoseDetection = () => {
     const videoRef = useRef(null);
     const canvasRef = useRef(null);
+    const textRef=useRef(null);
 
     useEffect(() => {
         const pose = new Pose({
@@ -26,21 +27,7 @@ const PoseDetection = () => {
             minTrackingConfidence: 0.5
         });
 
-        // Function to start video and process frames
-        const startVideo = (video) => {
-            const videoElement = video;
-            // videoElement.play();
-            videoElement.onloadeddata = () => {
-                const onFrame = async () => {
-                    if (!videoElement.paused && !videoElement.ended) {
-                        console.log("work")
-                        await pose.send({ image: videoElement }); // Send video frame to MediaPipe Pose
-                        requestAnimationFrame(onFrame); // Process next frame
-                    }
-                };
-                onFrame(); // Start processing frames
-            };
-        };
+
         function startCamera(){
             const camera = new Camera(videoRef.current, {
                 onFrame: async () => {
@@ -74,17 +61,35 @@ const PoseDetection = () => {
             // Draw landmarks
             drawLandmarks(canvasCtx, results.poseLandmarks, { color: 'red', lineWidth: 2 });
         }
+
+        function displaycanvas2(canvasCtx,canvasElement){
+            
+        }
         function onResults(results) {
             const canvasElement = canvasRef.current;
             const canvasCtx = canvasElement.getContext('2d');
+            const textElement=textRef.current
             updateCanvas(results,canvasCtx,canvasElement)
             
             if (results.poseLandmarks) {
-                // console.log(results)                
+                const selectedLeftParts=[LANDMARK_NAMES['left_shoulder'],LANDMARK_NAMES['nose'],LANDMARK_NAMES['left_ankle'],LANDMARK_NAMES['left_hip']]
+                const selectedRightParts=[LANDMARK_NAMES['right_shoulder'],LANDMARK_NAMES['nose'],LANDMARK_NAMES['right_ankle'],LANDMARK_NAMES['right_hip']]
+                const leftLandmarkVisibility = selectedLeftParts.every(landmark =>results.poseLandmarks[landmark].visibility>0.5);  
+                const rightLandmarkVisibility = selectedRightParts.every(landmark =>
+                    results.poseLandmarks[landmark].visibility>0.5
+                );               
+                const allLandmarksVisible=leftLandmarkVisibility||rightLandmarkVisibility
                 connectParts(canvasCtx, results)
-                // showLandmarkNames(results,canvasCtx,canvasElement)
-                // checkPushup(results, canvasCtx, canvasElement)
                 checkSquat(results, canvasCtx, canvasElement)
+                if(allLandmarksVisible){
+                    // showLandmarkNames(results,canvasCtx,canvasElement)
+                    // checkPushup(results, canvasCtx, canvasElement)
+                    checkSquat(results, canvasCtx, canvasElement)
+                    textElement.textContent="Start"
+                }             
+                else{
+                    textElement.textContent="Go Further away!"
+                }
             }
             canvasCtx.restore();
         }
@@ -102,7 +107,9 @@ const PoseDetection = () => {
             {/* <video ref={videoRef} src="/pushup.mp4" style={{ display: 'none' }} /> */}
             {/* <button onClick={() => videoRef.current && videoRef.current.play()}>Start Video</button> */}
             <canvas ref={canvasRef} width="640" height="480" />
+            <text ref={textRef} style={{fontSize:'50px'}}></text>
         </div>
+        
     );
 };
 
