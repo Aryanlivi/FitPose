@@ -5,5 +5,5 @@ class TrackingConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'tracking'
 
-    def ready(self) -> None:
-        import tracking.signals.handlers
+    # def ready(self) -> None:
+    #     import tracking.signals.handlers
