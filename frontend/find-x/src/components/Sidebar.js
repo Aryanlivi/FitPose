@@ -46,28 +46,28 @@ const Sidebar = () => {
         <nav>
             <div 
                 style={{ marginTop: '10px', height: '100vh', borderRadius: '50px',marginLeft:'10px', display: 'flex', flexDirection: 'column', alignItems: 'center'}} 
-                className="bg-gray-700 text-white w-32 p-4 fixed left-0 top-16 z-10"
+                className="bg-blue-500 text-white w-32 p-4 fixed left-0 top-16 z-10"
             > 
             <ul>
-                <li style={{ margin: '40px', marginBottom:'0px'}}>
+                <li style={{ margin: '30px', marginBottom:'0px'}}>
                     <Link to="/">
                         <img src={ house } alt='house_logo' style={{ display: 'block', marginLeft: 'auto', marginRight: 'auto', width: '100px', height: '100px' }} />
                     </Link>
                 </li>
 
-                <li style={{ margin: '40px', marginBottom:'0px'}}>
+                <li style={{ margin: '30px', marginBottom:'0px'}}>
                     <Link to="/pose">
                         <img src={ tools } alt='tools_logo'  style={{ display: 'block', marginLeft: 'auto', marginRight: 'auto', width: '100px', height: '100px' }}/>
                     </Link>
                 </li>
 
-                <li style={{ margin: '40px', marginBottom:'0px'}}>
+                <li style={{ margin: '30px', marginBottom:'0px'}}>
                     <Link to="/compete">
                         <img src={ competition } alt='competition_logo'  style={{ display: 'block', marginLeft: 'auto', marginRight: 'auto', width: '100px', height: '100px' }}/>
                     </Link>
                 </li>
 
-                <li style={{ margin: '40px', marginBottom:'0px'}}>
+                <li style={{ margin: '30px', marginBottom:'0px'}}>
                     {
                         !isAuthenticated ? (
                                 <button onClick={() => loginWithRedirect()}>

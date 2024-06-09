@@ -2,9 +2,9 @@ import leaderboardData from './leaderBoardData';
 import axios from "axios";
 import {useState, useEffect} from "react";
 import { firstBadge, secondBadge, thirdBadge } from '../assets';
-import { ReactComponent as FirstBadge } from '../assets/1-circle-fill.svg';
-import { ReactComponent as SecondBadge } from '../assets/2-circle-fill.svg';
-import { ReactComponent as ThirdBadge } from '../assets/3-circle-fill.svg';
+import { ReactComponent as FirstBadge } from '../assets/icon-medal-first.svg';
+import { ReactComponent as SecondBadge } from '../assets/icon-medal-second.svg';
+import { ReactComponent as ThirdBadge } from '../assets/icon-medal-third.svg';
 
 
 const HOST='127.0.0.1:8000';
@@ -52,16 +52,16 @@ const Leaderboard = () => {
 
   return (
     <div className="">
-    <h2 className="text-xl font-bold mb-4">Leaderboard</h2>
+    <h2 className="text-xl font-bold mb-4">Personal Leaderboard</h2>
     <div className="mb-4 flex justify-normal m-2">
         <select
         value={chosenValue}
         onChange={(e) => handleFilterChange(e)}
-        className='border-2 rounded mr-2'
+        className='border-2 border-black-300 rounded-lg py-2 px-3 bg-white text-gray-700 focus:outline-none focus:border-blue-500 transition-colors duration-300 ease-in-out shadow-sm mr-2'
         >              
           {filter.map((option) => (
             
-            <option key={option.id} value={option.id}>
+            <option key={option.id} value={option.id} className="py-2 px-4 hover:bg-gray-200">
               {option.name}
             </option>
           ))}
@@ -78,11 +78,19 @@ const Leaderboard = () => {
         </tr>
         </thead>
         <tbody>
-        {leaderboardData.map((player) => (
+        {leaderboardData.map((player,index) => (
             <tr key={player.id}>
-            <td className="p-2">{player.username}</td>
-            <td className="p-2">{player.personal_count+player.competitive_count}</td>
-            <td className="p-2 flex justify-center items-center" style={{ textAlign: 'center' }}><FirstBadge /></td>
+            <td className="p-2" style={{textAlign: 'center'}}>{player.username}</td>
+            <td className="p-2" style={{textAlign: 'center'}}>{player.personal_count+player.competitive_count}</td>
+            <td className="p-2 flex justify-center items-center" style={{ textAlign: 'center' }}>
+            {index === 0 ? (
+        <FirstBadge />
+      ) : index === 1 ? (
+        <SecondBadge />
+      ) : index === 2 ? (
+        <ThirdBadge />
+      ) : null}
+              </td>
             </tr>
         ))}
         </tbody>

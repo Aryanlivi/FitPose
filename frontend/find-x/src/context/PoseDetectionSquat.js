@@ -109,6 +109,24 @@ const PoseDetectionSquat = () => {
             {/* <button onClick={() => videoRef.current && videoRef.current.play()}>Start Video</button> */}
             <canvas ref={canvasRef} width="640" height="480" />
             <text ref={textRef} style={{fontSize:'50px'}}></text>
+            <br></br>
+            <button 
+                className='border-2' 
+                // onClick={()=>{handleComplete()}}
+                style={{
+                    padding: '10px 20px',
+                    fontSize: '16px',
+                    backgroundColor: '#007bff',
+                    color: '#fff',
+                    border: 'none',
+                    borderRadius: '5px',
+                    cursor: 'pointer',
+                    boxShadow: '0 2px 4px rgba(0, 123, 255, 0.2)',
+                    transition: 'background-color 0.3s',
+                  }}        
+            >
+                Complete Squat
+            </button>
         </div>
         
     );

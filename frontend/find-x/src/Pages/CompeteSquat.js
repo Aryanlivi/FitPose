@@ -1,13 +1,13 @@
 import React from 'react'
 import './Compete.css'
-import PoseDetectionPushup from '../context/PoseDetectionPushup'
+import PoseDetectionSquat from '../context/PoseDetectionSquat'
 
-const Compete = () => {
+const CompeteSquat = () => {
   return (
     <div className="box" style={{ marginTop: '20px', marginLeft:'450px'}}>
-      <PoseDetectionPushup /> 
+      <PoseDetectionSquat /> 
     </div>
   );
 }
 
-export default Compete
+export default CompeteSquat;

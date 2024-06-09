@@ -9,6 +9,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import LoginButton from './components/LoginButton';
 import SignIn from './Pages/SignIn';
 import Compete from './Pages/Compete';
+import CompeteSquat from './Pages/CompeteSquat';
 
 const Dashboard = () => <h1>Dashboard</h1>;
 const Profile = () => <h1>Profile</h1>;
@@ -33,6 +34,7 @@ function App() {
               <Route path="/pose" element={<Pose />} />
               <Route path="/signin" element={<SignIn />} />
               <Route path='/compete' element={<Compete />} />
+              <Route path="/squat" element={<CompeteSquat />} />
           </Routes>
       </div>
     </Router>

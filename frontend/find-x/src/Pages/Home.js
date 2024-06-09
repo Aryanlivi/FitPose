@@ -5,9 +5,15 @@ import Leaderboard from '../components/Leaderboard';
 import PoseVideoDetection from '../context/PoseVideoDetection';
 import PoseDetectionPushup from '../context/PoseDetectionPushup';
 import { stock_pushup, stock_pushup_gif, poor_push_up, barbell_squat_temp } from '../assets';
+import { useNavigate } from 'react-router';
 
 const Home = () => {
-
+    
+    const navigate = useNavigate();
+    const handleTrackYourPose = () => {
+        // Navigate to another route and pass the isPushUps prop as true or false
+        navigate(`/pose`);
+      };
     const imageStyle1 = {
         // borderRadius: '50% 40% 60% 50% / 60% 30% 40% 70%',
         borderRadius:'30px',
@@ -22,10 +28,11 @@ const Home = () => {
     };
 
   return (
+    
     <div style={{ display: 'flex', flexDirection: 'row' , marginLeft:'180px', marginTop:'75px'}}>
         <div style={{ display: 'flex', flexDirection: 'row' }}>
             <div style={{ display: 'fixed', flexDirection: 'column' , marginTop:'-19px' }}>
-                <div style={{ height:'300px' ,width:'300px', margin: '20px',borderRadius: '10px', borderColor: 'black', borderWidth: '2px', padding:'16px'  }} className="w-[30%]">
+                <div style={{ height:'500px' ,width:'300px', margin: '20px',borderRadius: '10px', padding:'16px',backgroundColor:'white',fontFamily:'Canela Text',textAlign:'center'  }} className="w-[30%] shadow-lg rounded-lg transition-shadow duration-50 hover:shadow-xl">
                     <Leaderboard />
                 </div>
                 {/* <div style={{ height:'300px', width:'300px',margin:'20px', marginRight:'40px',borderRadius: '10px', borderColor: 'black', borderWidth: '2px', padding:'16px' }} className="w-[30%]">
@@ -35,7 +42,7 @@ const Home = () => {
         </div>
 
         <div className='w-[60vw] rounded-md h-[150vh]'>
-            <div className="p-5 h-[45%]  bg-white  shadow-lg rounded-lg" style={{ display: 'flex', flexDirection: 'column',borderColor:'black',borderWidth:'1px'}}>
+            <div className="p-5 h-[45%]  bg-white  shadow-lg rounded-lg transition-shadow duration-50 hover:shadow-xl" style={{ display: 'flex', flexDirection: 'column'}}>
                 <div class='flex'><div>
                 <h1 style={{fontSize:'40px',fontFamily:'Canela Text Bold',marginLeft:'20px'}} className='w-[100%]'>TRACK YOUR POSE</h1>
                     <div>
@@ -43,7 +50,27 @@ const Home = () => {
                         <p style={{fontSize:'20px', fontFamily:'Canela Text', marginRight:'100px', marginLeft:'30px', justifyContent:'left'}} className='flex-initial text-black font-light text-justify'>
                         Poor posture often results in injuries. Track and improve your posture with our advanced pose detection algorithm to enhance your form and prevent injuries.
                         </p>
-                        <h1 style={{fontSize:'30px', fontFamily:'Canela Text', marginRight:'100px', marginLeft:'30px'}} className='flex-initial text-black font-light text-justify underline'>Lets get started!</h1>
+                        {/* <h1 onClick={()=>{handleTrackYourPose()}} style={{fontSize:'30px', fontFamily:'Canela Text', marginRight:'100px', marginLeft:'30px'}} className='flex-initial text-black font-light text-justify underline'>Lets get started!</h1> */}
+                        <button 
+                                className='border-2' 
+                                onClick={()=>{handleTrackYourPose()}}
+                                style={{
+                                    padding: '10px 20px',
+                                    marginLeft:'20px',
+                                    marginTop:'20px',
+                                    fontFamily:'Canela Text',
+                                    fontSize: '16px',
+                                    backgroundColor: '#007bff',
+                                    color: '#fff',
+                                    border: 'none',
+                                    borderRadius: '5px',
+                                    cursor: 'pointer',
+                                    boxShadow: '0 2px 4px rgba(0, 123, 255, 0.2)',
+                                    transition: 'background-color 0.3s',
+                                }}        
+                            >
+                                Lets Get Started!
+                            </button>
                     </div>
                     </div>
                     <img
@@ -59,7 +86,7 @@ const Home = () => {
             </div>
             <br></br>
             <br></br>
-            <div className="bg-gray-200 p-4 h-[50%] rounded-lg" style={{ display: 'flex', flexDirection: 'column', backgroundColor: 'black' }}>
+            <div className="bg-gray-200 p-4 h-[50%]  shadow-lg rounded-lg transition-shadow duration-50 hover:shadow-xl" style={{ display: 'flex', flexDirection: 'column', backgroundColor: 'white' }}>
             <div class='flex'>
             <img
                         src={ barbell_squat_temp }
@@ -71,16 +98,34 @@ const Home = () => {
 
                         />
                         <div>
-                <h1 style={{fontSize:'40px',fontFamily:'Canela Text Bold'}} className='w-[100%] text-white text-center border-solid'>COMPETE NOW</h1>
+                <h1 style={{fontSize:'40px',fontFamily:'Canela Text Bold'}} className='w-[100%] text-black text-center border-solid'>COMPETE NOW</h1>
                 <br></br>
                 <br></br>
                         
                         <div>
-                            <p style={{fontSize:'20px', fontFamily:'Canela Text', marginRight:'100px', marginLeft:'30px', justifyContent:'left'}} className='flex-initial text-white font-light text-justify'>
+                            <p style={{fontSize:'20px', fontFamily:'Canela Text', marginRight:'100px', marginLeft:'30px', justifyContent:'left'}} className='flex-initial text-black font-light text-justify'>
                                 In a competitive environment, utilizing pose detection techniques can significantly enhance both performance and safety. By accurately analyzing body movements, pose detection can provide athletes and fitness enthusiasts with real-time feedback on their form and technique.
                             </p>
                             <br></br>
-                            <h1 style={{fontSize:'30px', fontFamily:'Canela Text', marginRight:'100px', marginLeft:'30px', justifyContent:'left'}} className='flex-initial text-white font-light text-justify underline'>Compete!</h1>
+                            <button 
+                                className='border-2' 
+
+                                style={{
+                                    padding: '10px 20px',
+                                    marginLeft:'20px',
+                                    fontFamily:'Canela Text',
+                                    fontSize: '16px',
+                                    backgroundColor: '#007bff',
+                                    color: '#fff',
+                                    border: 'none',
+                                    borderRadius: '5px',
+                                    cursor: 'pointer',
+                                    boxShadow: '0 2px 4px rgba(0, 123, 255, 0.2)',
+                                    transition: 'background-color 0.3s',
+                                }}        
+                            >
+                                Compete!
+                            </button>
                         </div>
                     </div>
                     </div>
