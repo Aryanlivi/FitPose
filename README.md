@@ -24,6 +24,13 @@ Facilitate remote trainers for training.
 User profile are authenticated using google account.
 Provide users a leaderboard to motivate for more.
 
+![til](./frontend/find-x/src/assets/pose.gif) 
+
+
+![til](./frontend/find-x/src/assets/poor-form-push-up.gif)
+
+
+
 ## Tech Stack
 
 Frontend: React.js
@@ -32,7 +39,7 @@ Pose detection: mediapipe
 Database: PostgreSQL
 authentication: OAuth 2.0
 
-## Existing apps
+## Existing Research
 
 1. [Video based exercise recognition and correct pose detection](https://link.springer.com/article/10.1007/s11042-022-12299-z) <br>
 There has been some study related to correct pose detection from video. But there is a little to none success in the real time pose detection system. “Personal exercise sessions can be monitored and supervised with the help of pose recognition. Existing work on exercise classification primarily relies on external or wearable sensors for recognizing poses. However, such sensors often fail to differentiate amongst similar exercises. Some essential extensions of human pose estimation are activity detection and activity prediction” -  From the website
