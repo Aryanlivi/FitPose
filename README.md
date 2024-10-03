@@ -1,3 +1,4 @@
+Made during Kist Hackathon.
 # FITPOSE
 
 Welcome to our transformative web application, a powerful platform designed to motivate people of all ages to exercise by giving them online platform and compete for championships. Our mission is to create a physically healthy environment among the people all people like coders, gamers, elder people and many more. 
